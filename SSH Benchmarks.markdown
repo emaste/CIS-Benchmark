@@ -73,7 +73,7 @@ The <code>DenyGroups</code> variable gives the system administrator the option o
 groups of users to ssh into the system. The list consists of space separated group names.
 Numeric group IDs are not recognized with this variable.
 
-Rationale:
+#### Rationale:
 
 Restricting which users can remotely access the system via SSH will help ensure that only
 authorized users access the system.
@@ -82,20 +82,34 @@ authorized users access the system.
 
 Run the following command:
 
-<pre><code>sshd -T | grep -E '^\s*(allow|deny)(users|groups)\s+\S+'</code></pre>
+<pre><code>sshd -T | grep -E '^\s*(allow|deny)(users|groups)\s+\S+'</code></pre> 
 
 Verify that the output matches at least one of the following lines:
-AllowUsers <userlist>
-AllowGroups <grouplist>
-DenyUsers <userlist>
-DenyGroups <grouplist>
-Remediation:
+
+<pre><code>AllowUsers [userlist]
+  
+AllowGroups [grouplist]
+  
+DenyUsers [userlist]
+  
+DenyGroups [grouplist]</code></pre>
+  
+  
+  
+#### Remediation:
+
 Edit the /etc/ssh/sshd_config file to set one or more of the parameter as follows:
-AllowUsers <userlist>
-AllowGroups <grouplist>
-DenyUsers <userlist>
-DenyGroups <grouplist>
-CIS Controls:
+
+<pre><code>AllowUsers [userlist]
+  
+AllowGroups [grouplist]
+  
+DenyUsers [userlist]
+  
+DenyGroups [grouplist]</code></pre>
+  
+  
+#### CIS Controls:
 Version 7
 4.3 Ensure the Use of Dedicated Administrative Accounts
 Ensure that all users with administrative account access use a dedicated or secondary
