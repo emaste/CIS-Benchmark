@@ -303,3 +303,34 @@ Version 7
 16.13 Alert on Account Login Behavior Deviation
 Alert when users deviate from normal login behavior, such as time-of-day, workstation
 location and duration.
+
+## 5.2.8 Ensure SSH IgnoreRhosts is enabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>IgnoreRhosts</code> parameter specifies that <code>.rhosts</code> and <code>.shosts</code> files will not be used in
+<code>RhostsRSAAuthentication</code> or <code>HostbasedAuthentication</code>.
+
+#### Rationale:
+Setting this parameter forces users to enter a password when authenticating with ssh.
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep ignorerhosts
+IgnoreRhosts yes</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>IgnoreRhosts yes</code></pre>
+
+#### Default Value:
+IgnoreRhosts yes
+
+#### CIS Controls:
+Version 7
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system
