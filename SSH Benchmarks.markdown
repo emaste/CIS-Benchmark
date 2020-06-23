@@ -675,3 +675,98 @@ validated business needs, are running on each system.
 
 ## 5.2.18 Ensure SSH MaxStartups is configured
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>MaxStartups</code> parameter specifies the maximum number of concurrent unauthenticated
+connections to the SSH daemon.
+
+#### Rationale:
+To protect a system from denial of service due to a large number of pending authentication
+connection attempts, use the rate limiting function of <code>MaxStartups</code> to protect availability of
+sshd logins and prevent overwhelming the daemon.
+
+#### Audit:
+Run the following command and verify that output <code>MaxStartups</code> is 10:30:60 or matches
+site policy:
+<pre><code># sshd -T | grep -i maxstartups
+# maxstartups 10:30:60</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>maxstartups 10:30:60</code></pre>
+
+#### Default Value:
+MaxStartups 10:30:100
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 5.2.19 Ensure SSH MaxSessions is set to 4 or less
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>MaxSessions</code> parameter specifies the maximum number of open sessions permitted
+from a given connection.
+
+#### Rationale:
+To protect a system from denial of service due to a large number of concurrent sessions,
+use the rate limiting function of <code>MaxSessions</code> to protect availability of sshd logins and
+prevent overwhelming the daemon.
+
+#### Audit:
+Run the following command and verify that output <code>MaxSessions</code> is 4 or less, or matches site
+policy:
+<pre><code># sshd -T | grep -i maxsessions
+maxsessions 4</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>MaxSessions 4</code></pre>
+
+#### Default Value:
+MaxSessions 10
+
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 5.2.20 Ensure system-wide crypto policy is not over-ridden
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+System-wide Crypto policy can be over-ridden or opted out of for openSSH
+
+#### Rationale:
+Over-riding or opting out of the system-wide crypto policy could allow for the use of less
+secure Ciphers, MACs, KexAlgoritms and GSSAPIKexAlgorithsm
+
+#### Audit:
+Run the following command:
+<pre><code># grep '^/s*CRYPTO_POLICY=' /etc/sysconfig/sshd'</code></pre>
+
+No output should be returned
+
+#### Remediation:
+Run the following commands:
+<pre><code># sed -ri "s/^\s*(CRYPTO_POLICY\s*=.*)$/# \1/" /etc/sysconfig/sshd
+# systemctl reload sshd</code></pre>
+
+#### CIS Controls:
+Version 7
+14.4 Encrypt All Sensitive Information in Transit
+Encrypt all sensitive information in transit.
