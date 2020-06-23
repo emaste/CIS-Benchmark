@@ -517,3 +517,43 @@ ClientAliveCountMax 3
 Version 7
 16.11 Lock Workstation Sessions After Inactivity
 Automatically lock workstation sessions after a standard period of inactivity.
+
+## 5.2.14 Ensure SSH LoginGraceTime is set to one minute or less
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>LoginGraceTime</code> parameter specifies the time allowed for successful authentication to
+the SSH server. The longer the Grace period is the more open unauthenticated connections
+can exist. Like other session controls in this session the Grace Period should be limited to
+appropriate organizational limits to ensure the service is available for needed access.
+
+#### Rationale:
+Setting the <code>LoginGraceTime</code> parameter to a low number will minimize the risk of successful
+brute force attacks to the SSH server. It will also limit the number of concurrent
+unauthenticated connections While the recommended setting is 60 seconds (1 Minute), set
+the number based on site policy.
+
+#### Audit:
+Run the following command and verify that output LoginGraceTime is between 1 and 60:
+<pre><code># sshd -T | grep logingracetime
+LoginGraceTime 60</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>LoginGraceTime 1m</code></pre>
+
+#### Default Value:
+LoginGraceTime 2m
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+
+## 5.2.15 Ensure SSH warning banner is configured
+
