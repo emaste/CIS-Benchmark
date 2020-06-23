@@ -557,3 +557,72 @@ operating systems and software.
 
 ## 5.2.15 Ensure SSH warning banner is configured
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>Banner</code> parameter specifies a file whose contents must be sent to the remote user
+before authentication is permitted. By default, no banner is displayed.
+
+#### Rationale:
+Banners are used to warn connecting users of the particular site's policy regarding
+connection. Presenting a warning message prior to the normal user login may assist the
+prosecution of trespassers on the computer system.
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep banner
+Banner /etc/issue.net</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>Banner /etc/issue.net</code></pre>
+
+#### Default Value:
+Banner none
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 5.2.16 Ensure SSH PAM is enabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+UsePAM Enables the Pluggable Authentication Module interface. If set to “yes” this will
+enable PAM authentication using ChallengeResponseAuthentication and
+PasswordAuthentication in addition to PAM account and session module processing for all
+authentication types
+
+#### Rationale:
+When usePAM is set to yes, PAM runs through account and session types properly. This is
+important if you want to restrict access to services based off of IP, time or other factors of
+the account. Additionally, you can make sure users inherit certain environment variables
+on login or disallow access to the server
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep -i usepam
+usepam yes</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>UsePAM yes</code></pre>
+
+#### Impact:
+If UsePAM is enabled, you will not be able to run sshd(8) as a non-root user.
+
+#### Default Value:
+usePAM yes
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
