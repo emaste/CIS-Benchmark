@@ -626,3 +626,52 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+## 5.2.17 Ensure SSH AllowTcpForwarding is disabled
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+SSH port forwarding is a mechanism in SSH for tunneling application ports from the client
+to the server, or servers to clients. It can be used for adding encryption to legacy
+applications, going through firewalls, and some system administrators and IT professionals
+use it for opening backdoors into the internal network from their home machines
+
+#### Rationale:
+Leaving port forwarding enabled can expose the organization to security risks and backdoors.
+
+SSH connections are protected with strong encryption. This makes their contents invisible
+to most deployed network monitoring and traffic filtering solutions. This invisibility carries
+considerable risk potential if it is used for malicious purposes such as data exfiltration.
+Cybercriminals or malware could exploit SSH to hide their unauthorized communications,
+or to exfiltrate stolen data from the target network
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep -i allowtcpforwarding
+AllowTcpForwarding no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>AllowTcpForwarding no</code></pre>
+
+#### Impact:
+SSH tunnels are widely used in many corporate environments that employ mainframe
+systems as their application backends. In those environments the applications themselves
+may have very limited native support for security. By utilizing tunneling, compliance with
+SOX, HIPAA, PCI-DSS, and other standards can be achieved without having to modify the
+applications.
+
+#### Default Value:
+AllowTcpForwarding yes
+
+#### CIS Controls:
+Version 7
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
+
+## 5.2.18 Ensure SSH MaxStartups is configured
+
