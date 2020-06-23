@@ -192,3 +192,81 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
 
+## 5.2.5 Ensure SSH LogLevel is appropriate
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+
+<code>INFO</code> level is the basic level that only records login activity of SSH users. In many situations,
+such as Incident Response, it is important to determine when a particular user was active
+on a system. The logout record can eliminate those users who disconnected, which helps
+narrow the field.
+
+<code>VERBOSE</code> level specifies that login and logout activity as well as the key fingerprint for any
+SSH key used for login will be logged. This information is important for SSH key
+management, especially in legacy environments.
+
+#### Rationale:
+SSH provides several logging levels with varying amounts of verbosity. <code>DEBUG</code> is specifically
+**not** recommended other than strictly for debugging SSH communications since it provides
+so much data that it is difficult to identify important security information.
+
+#### Audit:
+Run the following command and verify that output matches:
+
+<pre><code># sshd -T | grep loglevel
+LogLevel VERBOSE
+OR
+loglevel INFO</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>LogLevel VERBOSE
+OR
+LogLevel INFO</code></pre>
+
+#### Default Value:
+LogLevel INFO
+
+
+#### CIS Controls:
+Version 7
+6.2 Activate audit logging
+Ensure that local logging has been enabled on all systems and networking devices.
+6.3 Enable Detailed Logging
+Enable system logging to include detailed information such as an event source, date,
+user, timestamp, source addresses, destination addresses, and other useful elements.
+
+## 5.2.6 Ensure SSH X11 forwarding is disabled
+
+#### Profile Applicability:
+* Level 1 - Workstation
+* Level 2 - Server
+
+#### Description:
+The X11Forwarding parameter provides the ability to tunnel X11 traffic through the
+connection to enable remote graphic connections.
+
+#### Rationale:
+Disable X11 forwarding unless there is an operational requirement to use X11 applications
+directly. There is a small risk that the remote X11 servers of users who are logged in via
+SSH with X11 forwarding could be compromised by other users on the X11 server. Note
+that even if X11 forwarding is disabled, users can always install their own forwarders.
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep x11forwarding
+X11Forwarding no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>X11Forwarding no</code></pre>
+
+#### CIS Controls:
+Version 7
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
