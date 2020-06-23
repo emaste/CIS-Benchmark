@@ -1,6 +1,6 @@
 # **SSH Benchmarks**
 
-## 5.2.1 Secure sshd_config
+## 5.2.1 Secure sshd_config:
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -34,7 +34,7 @@ operating systems and software
 
 
 
-## 5.2.2 Ensure SSH access is limited
+## 5.2.2 Ensure SSH access is limited:
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -115,3 +115,66 @@ Version 7
 Ensure that all users with administrative account access use a dedicated or secondary
 account for elevated activities. This account should only be used for administrative
 activities and not internet browsing, email, or similar activities
+
+
+## 5.2.3 Secure permissions on SSH private host key files:
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+
+An SSH private key is one of two files used in SSH public key authentication. In this
+authentication method, The possession of the private key is proof of identity. Only a private
+key that corresponds to a public key will be able to authenticate successfully. The private
+keys need to be stored and handled carefully, and no copies of the private key should be
+distributed.
+
+#### Rationale:
+If an unauthorized user obtains the private SSH host key file, the host could be
+impersonated
+
+
+#### Audit:
+Run the following command and verify Uid is 0/root and and Gid is 0/root. Ensure group
+and other do not have permissions
+
+<pre><code># find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec stat {} \;
+ File: ‘/etc/ssh/ssh_host_rsa_key’
+ Size: 1679 Blocks: 8 IO Block: 4096 regular file
+Device: ca01h/51713d Inode: 8628138 Links: 1
+Access: (0600/-rw-------) Uid: ( 0/ root) Gid: ( 0/root)
+Access: 2018-10-22 18:24:56.861750616 +0000
+Modify: 2018-10-22 18:24:56.861750616 +0000
+Change: 2018-10-22 18:24:56.873750616 +0000
+Birth: -
+ File: ‘/etc/ssh/ssh_host_ecdsa_key’
+ Size: 227 Blocks: 8 IO Block: 4096 regular file
+Device: ca01h/51713d Inode: 8631760 Links: 1
+Access: (0600/-rw-------) Uid: ( 0/ root) Gid: ( 0/root)
+Access: 2018-10-22 18:24:56.897750616 +0000
+Modify: 2018-10-22 18:24:56.897750616 +0000
+Change: 2018-10-22 18:24:56.905750616 +0000
+Birth: -
+ File: ‘/etc/ssh/ssh_host_ed25519_key’
+ Size: 387 Blocks: 8 IO Block: 4096 regular file
+Device: ca01h/51713d Inode: 8631762 Links: 1
+Access: (0600/-rw-------) Uid: ( 0/ root) Gid: ( 0/root)
+Access: 2018-10-22 18:24:56.945750616 +0000
+Modify: 2018-10-22 18:24:56.945750616 +0000
+Change: 2018-10-22 18:24:56.957750616 +0000
+Birth: - </code></pre>
+
+#### Remediation:
+Run the following commands to set ownership and permissions on the private SSH host key
+files.
+<pre><code># find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {}
+\;
+# find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \;</code></pre>
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
