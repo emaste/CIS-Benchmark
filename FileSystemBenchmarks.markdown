@@ -171,3 +171,42 @@ Run the following command to set permissions on <code>/etc/group</code> :
 Version 7
 16.4 Encrypt or Hash all Authentication Credentials
 Encrypt or hash with a salt all authentication credentials when stored.
+
+## 6.2.5 Ensure no world writable files exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+FreeBSD-based systems support variable settings to control access to files. World writable files
+are the least secure. See the chmod(2) man page for more information.
+
+#### Rationale:
+Data in world-writable files can be modified and compromised by any user on the system.
+World writable files may also indicate an incorrectly written script or program that could
+potentially be the cause of a larger compromise to the system's integrity.
+
+#### Audit:
+Run the following command and verify no files are returned:
+<pre><code># df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type f -perm -0002</code></pre>
+
+The command above only searches local filesystems, there may still be compromised items
+on network mounted partitions. Additionally the --local option to df is not universal to all
+versions, it can be omitted to search all filesystems on a system including network mounted
+filesystems or the following command can be run manually for each partition:
+
+<pre><code># find <partition> -xdev -type f -perm -0002</code></pre>
+
+#### Remediation:
+Removing write access for the "other" category ( chmod o-w <filename> ) is advisable, but
+always consult relevant vendor documentation to avoid breaking any application
+dependencies on a given file.
+  
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+13 Data Protection
+Data Protection
