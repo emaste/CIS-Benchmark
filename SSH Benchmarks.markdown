@@ -435,3 +435,85 @@ Version 7
 16.3 Require Multi-factor Authentication
 Require multi-factor authentication for all user accounts, on all systems, whether
 managed onsite or by a third-party provider.
+
+## 5.2.12 Ensure SSH PermitUserEnvironment is disabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>PermitUserEnvironment</code> option allows users to present environment options to the
+<code>ssh</code> daemon.
+
+#### Rationale:
+Permitting users the ability to set environment variables through the SSH daemon could
+potentially allow users to bypass security controls (e.g. setting an execution path that has
+<code>ssh</code> executing trojan'd programs)
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep permituserenvironment
+PermitUserEnvironment no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>PermitUserEnvironment no</code></pre>
+
+#### Default Value:
+PermitUserEnvironment no
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 5.2.13 Ensure SSH Idle Timeout Interval is configured
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The two options <code>ClientAliveInterval</code> and <code>ClientAliveCountMax</code> control the timeout of
+<code>ssh</code> sessions. When the <code>ClientAliveInterval</code> variable is set, ssh sessions that have no
+activity for the specified length of time are terminated. When the <code>ClientAliveMax</code>
+variable is set, <code>sshd</code> will send client alive messages at every <code>ClientAliveInterval</code> interval.
+When the number of consecutive client alive messages are sent with no response from the
+client, the ssh session is terminated. For example, if the <code>ClientAliveInterval</code> is set to 15
+seconds and the <code>ClientAliveMax</code> is set to 3, the client <code>ssh</code> session will be terminated
+after 45 seconds of idle time.
+
+#### Rationale:
+Having no timeout value associated with a connection could allow an unauthorized user
+access to another user's <code>ssh</code> session (e.g. user walks away from their computer and doesn't
+lock the screen). Setting a timeout value at least reduces the risk of this happening..
+
+While the recommended setting is 300 seconds (5 minutes), set this timeout value based on
+site policy. The recommended setting for <code>ClientAliveCountMax</code> is 0. In this case, the client
+session will be terminated after 5 minutes of idle time and no keepalive messages will be
+sent.
+
+#### Audit:
+Run the following commands and verify <code>ClientAliveInterval</code> is between 1 and 300 and
+<code>ClientAliveCountMax</code> is 3 or less:
+<pre><code># sshd -T | grep clientaliveinterval
+ClientAliveInterval 300
+# sshd -T | grep clientalivecountmax
+ClientAliveCountMax 0</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameters according to site policy:
+<pre><code>ClientAliveInterval 300
+ClientAliveCountMax 0</code></pre>
+
+#### Default Value:
+ClientAliveInterval 0
+
+ClientAliveCountMax 3
+
+#### CIS Controls:
+Version 7
+16.11 Lock Workstation Sessions After Inactivity
+Automatically lock workstation sessions after a standard period of inactivity.
