@@ -33,7 +33,6 @@ Maintain documented, standard security configuration standards for all authorize
 operating systems and software
 
 
-
 ## 5.2.2 Ensure SSH access is limited:
 
 #### Profile Applicability:
@@ -270,3 +269,37 @@ Version 7
 9.2 Ensure Only Approved Ports, Protocols and Services Are Running
 Ensure that only network ports, protocols, and services listening on a system with
 validated business needs, are running on each system.
+
+## 5.2.7 Ensure SSH MaxAuthTries is set to 4 or less
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>MaxAuthTries</code> parameter specifies the maximum number of authentication attempts
+permitted per connection. When the login failure count reaches half the number, error
+messages will be written to the <code>syslog</code> file detailing the login failure.
+
+#### Rationale:
+Setting the <code>MaxAuthTries</code> parameter to a low number will minimize the risk of successful
+brute force attacks to the SSH server. While the recommended setting is 4, set the number
+based on site policy.
+
+#### Audit:
+Run the following command and verify that output <code>MaxAuthTries</code> is 4 or less:
+<pre><code># sshd -T | grep maxauthtries
+MaxAuthTries 4</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>MaxAuthTries 4</code></pre>
+
+#### Default Value:
+MaxAuthTries 6
+
+#### CIS Controls:
+Version 7
+16.13 Alert on Account Login Behavior Deviation
+Alert when users deviate from normal login behavior, such as time-of-day, workstation
+location and duration.
