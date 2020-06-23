@@ -147,8 +147,8 @@ and other do not have permissions
 #### Remediation:
 Run the following commands to set ownership and permissions on the private SSH host key
 files.
-<pre><code># find ~/.ssh/id_rsa -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \;
-# find ~/.ssh/id_rsa -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \;</code></pre>
+<pre><code># chown root:operator ~/.ssh/id_rsa
+# chmod </code></pre>
 
 #### CIS Controls:
 Version 7
@@ -183,10 +183,8 @@ to group or other for all returned files
 Run the following commands to set permissions and ownership on the SSH host public key
 files
 
-<pre><code># find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 0644 {}
-\;
-#find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root
-{} \;</code></pre>
+<pre><code># chown root:operator ~/.ssh/id_rsa.pub
+# chmod </code></pre>
 
 #### CIS Controls:
 Version 7
