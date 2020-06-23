@@ -1,6 +1,10 @@
 Issues:
+SSH
 5.2.1 Output is off
 5.2.2 Grep search peramitors are not working
 5.2.3 
 5.2.4 Change permissions needs to be done
 5.2.20 Incorrect way of changing the variable -NEEDS FIXING
+
+FileSystem
+6.1.5 Check if the find command is doable
