@@ -17,7 +17,7 @@ Run the following command and verify Uid and Gid are both 0/root and Access does
 grant permissions to group or other:
 
 <pre><code># stat /etc/ssh/sshd_config
-86 963266 -rw-r--r-- 1 root wheel 1935248 3330 "Jun 22 13:28:04 2020" "Nov 1 00:28:52 2019" "Jun 22 13:21:51 2020" "Nov 1 00:28:52 2019" 32768 8 0 /etc/ssh/sshd_config</code></pre>
+</code></pre>
 
 
 #### Remediation:
