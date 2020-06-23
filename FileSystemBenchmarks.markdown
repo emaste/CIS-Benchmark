@@ -1,3 +1,5 @@
+# File System Permissions
+
 ## 6.1.1 Audit system file permissions
 
 #### Profile Applicability:
@@ -135,6 +137,35 @@ Run the one of the following chown commands as appropriate and the chmod to set
 permissions on /etc/shadow :
 <pre><code># chown root:operator /etc/master.passwd
 # chmod 640 /etc/master.passwd</code></pre>
+
+#### CIS Controls:
+Version 7
+16.4 Encrypt or Hash all Authentication Credentials
+Encrypt or hash with a salt all authentication credentials when stored.
+
+## 6.2.4 Ensure permissions on /etc/group are configured
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>/etc/group</code> file contains a list of all the valid groups defined in the system. The
+command below allows read/write access for root and read access for everyone else.
+
+#### Rationale:
+The <code>/etc/group</code> file needs to be protected from unauthorized changes by non-privileged
+users, but needs to be readable as this information is used with many non-privileged programs.
+
+#### Audit:
+Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and operator:
+<pre><code># ls -l /etc/group
+-rw-r--r-- 1 root operator [date and time] /etc/group</code></pre>
+
+#### Remediation:
+Run the following command to set permissions on <code>/etc/group</code> :
+<pre><code># chown root:operator /etc/group
+# chmod 644 /etc/group</code></pre>
 
 #### CIS Controls:
 Version 7
