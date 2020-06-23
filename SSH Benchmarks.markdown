@@ -334,3 +334,38 @@ Version 7
 9.2 Ensure Only Approved Ports, Protocols and Services Are Running
 Ensure that only network ports, protocols, and services listening on a system with
 validated business needs, are running on each system
+
+## 5.2.9 Ensure SSH HostbasedAuthentication is disabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>HostbasedAuthentication</code> parameter specifies if authentication is allowed through
+trusted hosts via the user of <code>.rhosts</code>, or <code>/etc/hosts.equiv</code>, along with successful public
+key client host authentication. This option only applies to SSH Protocol Version 2.
+
+
+#### Rationale:
+Even though the <code>.rhosts</code> files are ineffective if support is disabled in <code>/etc/pam.conf</code>,
+disabling the ability to use <code>.rhosts</code> files in SSH provides an additional layer of protection.
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep hostbasedauthentication
+HostbasedAuthentication no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>HostbasedAuthentication no</code></pre>
+
+#### Default Value:
+HostbasedAuthentication no
+
+#### CIS Controls:
+Version 7
+16.3 Require Multi-factor Authentication
+Require multi-factor authentication for all user accounts, on all systems, whether
+managed onsite or by a third-party provider.
+
