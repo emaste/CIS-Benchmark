@@ -110,14 +110,14 @@ Version 7
 16.4 Encrypt or Hash all Authentication Credentials
 Encrypt or hash with a salt all authentication credentials when stored.
 
-## 6.2.3 Ensure permissions on /etc/shadow are configured
+## 6.2.3 Ensure permissions on /etc/master.passwd are configured
 
 #### Profile Applicability:
 * Level 1 - Server
 * Level 1 - Workstation
 
 #### Description:
-The <code>/etc/shadow</code> file is used to store the information about user accounts that is critical to
+The <code>/etc/master.passwd</code> file is used to store the information about user accounts that is critical to
 the security of those accounts, such as the hashed password and other security information.
 
 #### Rationale:
