@@ -369,3 +369,69 @@ Version 7
 Require multi-factor authentication for all user accounts, on all systems, whether
 managed onsite or by a third-party provider.
 
+## 5.2.10 Ensure SSH root login is disabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+
+#### Description:
+The <code>PermitRootLogin</code> parameter specifies if the root user can log in using ssh. The default
+is no.
+
+#### Rationale:
+Disallowing root logins over SSH requires system admins to authenticate using their own
+individual account, then escalating to root via <code>sudo</code> or <code>su</code>. This in turn limits opportunity for
+non-repudiation and provides a clear audit trail in the event of a security incident.
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep permitrootlogin
+PermitRootLogin no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>PermitRootLogin no</code></pre>
+
+#### Default Value:
+PermitRootLogin no
+
+#### CIS Controls:
+Version 7
+4.3 Ensure the Use of Dedicated Administrative Accounts
+Ensure that all users with administrative account access use a dedicated or secondary
+account for elevated activities. This account should only be used for administrative
+activities and not internet browsing, email, or similar activities.
+
+## 5.2.11 Ensure SSH PermitEmptyPasswords is disabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>PermitEmptyPasswords</code> parameter specifies if the SSH server allows login to accounts
+with empty password strings.
+
+#### Rationale:
+Disallowing remote shell access to accounts that have an empty password reduces the
+probability of unauthorized access to the system
+
+#### Audit:
+Run the following command and verify that output matches:
+<pre><code># sshd -T | grep permitemptypasswords
+PermitEmptyPasswords no</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/ssh/sshd_config</code> file to set the parameter as follows:
+<pre><code>PermitEmptyPasswords no</code></pre>
+
+#### Default Value:
+PermitEmptyPasswords no
+
+#### CIS Controls:
+Version 7
+16.3 Require Multi-factor Authentication
+Require multi-factor authentication for all user accounts, on all systems, whether
+managed onsite or by a third-party provider.
