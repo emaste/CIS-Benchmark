@@ -136,8 +136,7 @@ impersonated
 
 
 #### Audit:
-Run the following command and verify Uid is 0/root and and Gid is 0/root. Ensure group
-and other do not have permissions
+Run the following command and verify the owner and group ID are set to root and operator. The permissions should also be restricted to owner read/write only. 
 
 <pre><code># ls -l ~/.ssh/id_rsa
 -rw------- 1 root wheel [date and time] /root/.ssh/id_rsa
@@ -147,7 +146,7 @@ and other do not have permissions
 Run the following commands to set ownership and permissions on the private SSH host key
 files.
 <pre><code># chown root:operator ~/.ssh/id_rsa
-# chmod </code></pre>
+# chmod 600 ~/.ssh/id_rsa</code></pre>
 
 #### CIS Controls:
 Version 7
@@ -172,8 +171,7 @@ If a public host key file is modified by an unauthorized user, the SSH service m
 compromised.
 
 #### Audit:
-Run the following command and verify Access does not grant write or execute permissions
-to group or other for all returned files
+Run the following command and verify the owner and group ID are set to root and operator. The permissions should also grant everyone read access, but only the owner should have write permissions
 
 <pre><code># ls -l ~/.ssh/id_rsa.pub
 -rw-r--r-- 1 root wheel [date and time] /root/.ssh/id_rsa.pub</code></pre>
@@ -183,7 +181,7 @@ Run the following commands to set permissions and ownership on the SSH host publ
 files
 
 <pre><code># chown root:operator ~/.ssh/id_rsa.pub
-# chmod </code></pre>
+# chmod 644 ~/.ssh/id_rsa.pub</code></pre>
 
 #### CIS Controls:
 Version 7
