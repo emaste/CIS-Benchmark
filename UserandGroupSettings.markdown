@@ -151,3 +151,31 @@ Version 7
 16.2 Configure Centralized Point of Authentication
 Configure access for all accounts through as few centralized points of authentication as
 possible, including network, security, and cloud systems.
+
+## 6.2.6 Ensure root is the only UID 0 account
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Any account with UID <code>0</code> has superuser privileges on the system.
+
+#### Rationale:
+This access must be limited to only the default <code>root</code> account and only from the system
+console. Administrative access must be through an unprivileged account using an approved
+mechanism as noted in Item 5.6 Ensure access to the su command is restricted.
+
+#### Audit:
+Run the following command and verify that only "root" is returned:
+<pre><code># awk -F: '($3 == 0) { print $1 }' /etc/passwd
+root</code></pre>
+
+#### Remediation:
+Remove any users other than <code>root</code> with UID <code>0</code> or assign them a new UID if appropriate.
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
