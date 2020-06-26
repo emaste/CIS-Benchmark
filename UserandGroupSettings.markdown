@@ -49,7 +49,7 @@ These entries may provide an avenue for attackers to gain privileged access on t
 
 #### Audit:
 Run the following command and verify that no output is returned:
-# grep '^\+:' /etc/passwd
+<pre><code># grep '^\+:' /etc/passwd</code></pre>
 
 #### Remediation:
 Remove any legacy '+' entries from /etc/passwd if they exist.
@@ -98,3 +98,56 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
 
+## 6.2.4 Ensure no legacy “+” entries exist in /etc/master.passwd
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The character '+' in various files used to be markers for systems to insert data from NIS
+maps at a certain point in a system configuration file. These entries are no longer required
+on most systems, but may exist in files that have been imported from other platforms.
+
+#### Rationale:
+These entries may provide an avenue for attackers to gain privileged access on the system.
+
+#### Audit:
+Run the following command and verify that no output is returned:
+<pre><code># grep '^\+:' /etc/master.passwd</code></pre>
+
+#### Remediation:
+Remove any legacy '+' entries from <code>/etc/master.passwd</code> if they exist.
+
+#### CIS Controls:
+Version 7
+16.2 Configure Centralized Point of Authentication
+Configure access for all accounts through as few centralized points of authentication as
+possible, including network, security, and cloud systems.
+
+## 6.2.5 Ensure no legacy “+” entries exist in /etc/group
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The character '+' in various files used to be markers for systems to insert data from NIS
+maps at a certain point in a system configuration file. These entries are no longer required
+on most systems, but may exist in files that have been imported from other platforms.
+
+#### Rationale:
+These entries may provide an avenue for attackers to gain privileged access on the system.
+
+#### Audit:
+Run the following command and verify that no output is returned:
+<pre><code># grep '^\+:' /etc/group</code></pre>
+
+#### Remediation:
+Remove any legacy '+' entries from <code>/etc/group</code> if they exist.
+
+#### CIS Controls:
+Version 7
+16.2 Configure Centralized Point of Authentication
+Configure access for all accounts through as few centralized points of authentication as
+possible, including network, security, and cloud systems.
