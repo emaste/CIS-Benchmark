@@ -210,3 +210,34 @@ Maintain documented, standard security configuration standards for all authorize
 operating systems and software.
 13 Data Protection
 Data Protection
+
+## 6.1.6 Ensure no unowned files or directories exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Sometimes when administrators delete users from the password file they neglect to
+remove all files owned by those users from the system.
+
+#### Rationale:
+A new user who is assigned the deleted user's user ID or group ID may then end up
+"owning" these files, and thus have more access on the system than was intended.
+
+#### Audit:
+Run the following command and verify no files are returned:
+<pre><code># find / -nouser
+# find / -nogroup</code></pre>
+
+#### Remediation:
+Locate files that are owned by users or groups not listed in the system configuration files,
+and reset the ownership of these files to some active user on the system as appropriate.
+
+#### CIS Controls:
+Version 7
+13.2 Remove Sensitive Data or Systems Not Regularly Accessed by Organization
+Remove sensitive data or systems not regularly accessed by the organization from the
+network. These systems shall only be used as stand alone systems (disconnected from the
+network) by the business unit needing to occasionally use the system or completely
+virtualized and powered off until needed.
