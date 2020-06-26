@@ -271,3 +271,67 @@ Remove sensitive data or systems not regularly accessed by the organization from
 network. These systems shall only be used as stand alone systems (disconnected from the
 network) by the business unit needing to occasionally use the system or completely
 virtualized and powered off until needed.
+
+## 6.1.8 Audit SUID executables
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The owner of a file can set the file's permissions to run with the owner's or group's
+permissions, even if the user running the program is not the owner or a member of the
+group. The most common reason for a SUID program is to enable users to perform
+functions (such as changing their password) that require root privileges.
+
+#### Rationale:
+There are valid reasons for SUID programs, but it is important to identify and review such
+programs to ensure they are legitimate.
+
+#### Audit:
+Run the following command to list SUID files:
+<pre><code># find / -perm -4000 -print</code></pre>
+
+
+#### Remediation:
+Ensure that no rogue SUID programs have been introduced into the system. Review the
+files returned by the action in the Audit section and confirm the integrity of these binaries.
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 6.1.9 Audit SGID executables
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The owner of a file can set the file's permissions to run with the owner's or group's
+permissions, even if the user running the program is not the owner or a member of the
+group. The most common reason for a SGID program is to enable users to perform
+functions (such as changing their password) that require root privileges.
+
+#### Rationale:
+There are valid reasons for SGID programs, but it is important to identify and review such
+programs to ensure they are legitimate.  Review the files returned by the action in the audit
+section and check to see if system binaries have a different md5 checksum than that of
+the package. This is an indication that the binary may have been replaced.
+
+#### Audit:
+Run the following command to list SGID files:
+<pre><code># find / -perm -2000 -print</code></pre>
+
+
+#### Remediation:
+Ensure that no rogue SGID programs have been introduced into the system. Review the
+files returned by the action in the Audit section and confirm the integrity of these binaries.
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
