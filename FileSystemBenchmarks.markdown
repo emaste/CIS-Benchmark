@@ -110,7 +110,7 @@ Version 7
 16.4 Encrypt or Hash all Authentication Credentials
 Encrypt or hash with a salt all authentication credentials when stored.
 
-## 6.2.3 Ensure permissions on /etc/master.passwd are configured
+## 6.1.3 Ensure permissions on /etc/master.passwd are configured
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -143,7 +143,7 @@ Version 7
 16.4 Encrypt or Hash all Authentication Credentials
 Encrypt or hash with a salt all authentication credentials when stored.
 
-## 6.2.4 Ensure permissions on /etc/group are configured
+## 6.1.4 Ensure permissions on /etc/group are configured
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -172,7 +172,7 @@ Version 7
 16.4 Encrypt or Hash all Authentication Credentials
 Encrypt or hash with a salt all authentication credentials when stored.
 
-## 6.2.5 Ensure no world writable files exist
+## 6.1.5 Ensure no world writable files exist
 
 #### Profile Applicability:
 * Level 1 - Server
