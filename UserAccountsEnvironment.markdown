@@ -24,10 +24,12 @@ Run the following command and verify <code>PASS_MAX_DAYS</code> conforms to site
 than 365 days):
 
 <pre><code># grep PASS_MAX_DAYS /etc/login.defs
-PASS_MAX_DAYS 365
+PASS_MAX_DAYS 365</code></pre>
+
 Run the following command and Review list of users and PASS_MAX_DAYS to verify that all
-users' PASS_MAX_DAYS conforms to site policy (no more than 365 days):
-# grep -E '^[^:]+:[^!*]' /etc/shadow | cut -d: -f1,5
+users' <code>PASS_MAX_DAYS</code> conforms to site policy (no more than 365 days):
+
+<pre><code># grep -E '^[^:]+:[^!*]' /etc/shadow | cut -d: -f1,5
 <user>:<PASS_MAX_DAYS>
 </code></pre>
 
@@ -49,3 +51,12 @@ Where multi-factor authentication is not supported (such as local administrator,
 service accounts), accounts will use passwords that are unique to that system.
 
 ## 5.5.1.2 
+
+
+
+
+
+
+
+
+## 
