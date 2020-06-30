@@ -240,4 +240,49 @@ application, or database specific access control lists. These controls will enfo
 principle that only authorized individuals should have access to the information based on
 their need to access the information as a part of their responsibilities.
 
+## 6.2.8 Ensure users own their home directories
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The user home directory is space defined for the particular user to set local environment
+variables and to store personal files.
+
+#### Rationale:
+Since the user is accountable for files stored in the user home directory, the user must be
+the owner of the directory.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which
+nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user
+dir; do
+ if [ ! -d "$dir" ]; then
+ echo "The home directory ($dir) of user $user does not exist."
+ else
+ owner=$(stat -L -c "%U" "$dir")
+ if [ "$owner" != "$user" ]; then
+ echo "The home directory ($dir) of user $user is owned by $owner."
+ fi
+fi
+done</code></pre>
+
+#### Remediation:
+Change the ownership of any home directories that are not owned by the defined user to
+the correct user.
+
+#### Notes:
+On some distributions the /sbin/nologin should be replaced with <code>/usr/sbin/nologin</code>.
+
+#### CIS Controls:
+Version 7
+14.6 Protect Information through Access Control Lists
+Protect all information stored on systems with file system, network share, claims,
+application, or database specific access control lists. These controls will enforce the
+principle that only authorized individuals should have access to the information based on
+their need to access the information as a part of their responsibilities.
+
+##
