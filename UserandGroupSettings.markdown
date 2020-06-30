@@ -179,3 +179,65 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+## 6.2.7 Ensure users’ home directories permissions are 750 or more restrictive
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+While the system administrator can establish secure permissions for users' home
+directories, the users can easily override these.
+
+#### Rationale:
+Group or world-writable user home directories may enable malicious users to steal or
+modify other users' data or to gain another user's system privileges.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code> #!/bin/bash
+grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which
+nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user
+dir; do
+ if [ ! -d "$dir" ]; then
+ echo "The home directory ($dir) of user $user does not exist."
+ else
+ dirperm=$(ls -ld $dir | cut -f1 -d" ")
+ if [ $(echo $dirperm | cut -c6) != "-" ]; then
+ echo "Group Write permission set on the home directory ($dir) of user
+$user"
+ fi
+ if [ $(echo $dirperm | cut -c8) != "-" ]; then
+ echo "Other Read permission set on the home directory ($dir) of user
+$user"
+ fi
+ if [ $(echo $dirperm | cut -c9) != "-" ]; then
+ echo "Other Write permission set on the home directory ($dir) of user
+$user"
+ fi
+ if [ $(echo $dirperm | cut -c10) != "-" ]; then
+ echo "Other Execute permission set on the home directory ($dir) of user
+$user"
+ fi
+ fi
+done</code></pre>
+
+#### Remediation:
+Making global modifications to user home directories without alerting the user community
+can result in unexpected outages and unhappy users. Therefore, it is recommended that a
+monitoring policy be established to report user file permissions and determine the action
+to be taken in accordance with site policy.
+
+#### Notes:
+On some distributions the /sbin/nologin should be replaced with /usr/sbin/nologin.
+
+#### CIS Controls:
+Version 7
+14.6 Protect Information through Access Control Lists
+Protect all information stored on systems with file system, network share, claims,
+application, or database specific access control lists. These controls will enforce the
+principle that only authorized individuals should have access to the information based on
+their need to access the information as a part of their responsibilities.
+
+
