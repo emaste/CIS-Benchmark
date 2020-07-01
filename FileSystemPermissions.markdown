@@ -7,43 +7,8 @@
 * Level 2 - Workstation
 
 #### Description:
-The RPM package manager has a number of useful options. One of these, the -V for RPM
-option, can be used to verify that system packages are correctly installed. The -V option can
-be used to verify a particular package or to verify all system packages. If no output is
-returned, the package is installed correctly. The following table describes the meaning of
-output from the verify option:
 
-Code Meaning
-S File size differs.
-M File mode differs (includes permissions and file type).
-5 The MD5 checksum differs.
-D The major and minor version numbers differ on a device file.
-L A mismatch occurs in a link.
-U The file ownership differs.
-G The file group owner differs.
-T The file time (mtime) differs.
 
-The rpm -qf command can be used to determine which package a particular file belongs to.
-For example the following commands determines which package the /bin/bash file
-belongs to:
-
-# rpm -qf /bin/bash
-bash-4.1.2-29.el6.x86_64
-# dpkg -S /bin/bash
-bash: /bin/bash
-
-To verify the settings for the package that controls the /bin/bash file, run the following:
-
-# rpm -V bash-4.1.2-29.el6.x86_64
-.M....... /bin/bash
-# dpkg --verify bash
-??5?????? c /etc/bash.bashrc
-
-Note that you can feed the output of the rpm -qf command to the rpm -V command:
-
-# rpm -V `rpm -qf /etc/passwd`
-.M...... c /etc/passwd
-S.5....T c /etc/printcap
 
 #### Rationale:
 It is important to confirm that packaged system files and directories are maintained with
@@ -54,14 +19,12 @@ Run the following command to review all installed packages. Note that this may b
 time consuming and may be best scheduled via the cron utility. It is recommended that the
 output of this command be redirected to a file that can be reviewed later.
 
-# rpm -Va --nomtime --nosize --nomd5 --nolinkto > <filename>
+<pre><code># pkg check -s > <filename></code></pre>
 
 #### Remediation:
 Correct any discrepancies found and rerun the audit until output is clean or risk is
 mitigated or accepted.
 
-#### References:
-1. http://docs.fedoraproject.org/enUS/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html
 
 #### Notes:
 Since packages and important files may change with new updates and releases, it is
