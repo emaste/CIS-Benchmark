@@ -84,5 +84,44 @@ Version 7
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system.
 
-## 5.5.1.3 Ensure inactive password lock is 30 days or less
+## 5.5.2 Ensure default user shell timeout is 900 seconds or less
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The default <code>TMOUT</code> determines the shell timeout for users. The <code>TMOUT</code> value is measured in
+seconds.
+
+#### Rationale:
+Having no timeout value associated with a shell could allow an unauthorized user access to
+another user's shell session (e.g. user walks away from their computer and doesn't lock the
+screen). Setting a timeout value at least reduces the risk of this happening.
+
+#### Audit:
+Run the following commands and verify the returned TMOUT line is 900 or less
+
+<pre><code># grep "^TMOUT" /etc/profile
+readonly TMOUT=900 ; export TMOUT
+</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/profile</code> file (and the appropriate
+files for any other shell supported on your system) and add or edit any umask parameters
+as follows:
+<pre><code>readonly TMOUT=900 ; export TMOUT</code></pre>
+Note that setting the value to readonly prevents unwanted modification during runtime.
+
+#### Notes:
+The audit and remediation in this recommendation only applies to the <code>sh</code>. If other shells
+are supported on the system, it is recommended that their configuration files also are
+checked. Other methods of setting a timeout exist for other shells not covered here.
+Ensure that the timeout conforms to your local policy.
+
+#### CIS Controls:
+Version 7
+16.11 Lock Workstation Sessions After Inactivity
+Automatically lock workstation sessions after a standard period of inactivity.
+
 
