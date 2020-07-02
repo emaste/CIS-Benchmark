@@ -9,7 +9,8 @@ SSH
 5.2.20 Incorrect way of changing the variable -NEEDS FIXING
 
 User Accounts & Environment
-5.5.1.2 No option for this in FreeBSD
+Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
+5.5.1.2 - No option to switch warning for individual users
 
 
 FileSystem
