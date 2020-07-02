@@ -1,4 +1,8 @@
 Issues:
+
+Cron/Perodic:
+5.1.4 - Location of allow/deny files
+
 SSH
 5.2.1 Output is off
 5.2.2 Grep search peramitors are not working
