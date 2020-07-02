@@ -86,4 +86,3 @@ service accounts), accounts will use passwords that are unique to that system.
 
 ## 5.5.1.3 Ensure inactive password lock is 30 days or less
 
-
