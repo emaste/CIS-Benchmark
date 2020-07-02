@@ -46,6 +46,7 @@ to change their password.
 
 #### CIS Controls:
 Version 7
+
 4.4 Use Unique Passwords
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system.
@@ -80,6 +81,7 @@ Set the <code>warnpassword</code> parameter to 7 in <code>/etc/login.conf</code>
 
 #### CIS Controls:
 Version 7
+
 4.4 Use Unique Passwords
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system.
@@ -121,6 +123,7 @@ Ensure that the timeout conforms to your local policy.
 
 #### CIS Controls:
 Version 7
+
 16.11 Lock Workstation Sessions After Inactivity
 Automatically lock workstation sessions after a standard period of inactivity.
 
@@ -149,6 +152,7 @@ Run the following command to set the root user default group to GID 0 :
 
 ##### CIS Controls:
 Version 7
+
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
@@ -202,5 +206,34 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
 13 Data Protection
 Data Protection
+
+## 5.5.5 Ensure root login is restricted to system console
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The file /etc/ttys contains a list of valid terminals that may be logged into directly by root.
+
+#### Rationale:
+Since the system console has special properties to handle emergency situations, it is
+important to ensure that the console is in a physically secure location and that
+unauthorized consoles have not been defined.
+
+#### Audit:
+<pre><code># cat /etc/ttys</code></pre>
+
+#### Remediation:
+Remove entries for any consoles that are not in a physically secure location. This can be done by 
+changing the status of those consoles from secure to insecure.
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software
