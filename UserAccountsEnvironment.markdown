@@ -23,7 +23,7 @@ attacker's window of opportunity.
 Run the following command and verify <code>passwordtime</code> conforms to site policy (no more
 than 365 days):
 
-<pre><code># grep PASS_MAX_DAYS /etc/login.defs
+<pre><code># grep passwordtime /etc/login.conf
 :passwordtime=365d:\</code></pre>
 
 Run the following command and Review list of users and <code>passwordtime</code> to verify that all
@@ -50,12 +50,37 @@ Version 7
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system.
 
-## 5.5.1.2 Ensure minimum days between password changes is 7 or more
+## 5.5.1.2 Ensure password expiration warning days is 7 or more
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>warnpassword</code> parameter in <code>/etc/login.conf</code> allows an administrator to notify users
+that their password will expire in a defined number of days. It is recommended that the
+<code>warnpassword</code> parameter be set to 7 or more days.
+
+#### Rationale:
+Providing an advance warning that a password will be expiring gives users time to think of
+a secure password. Users caught unaware may choose a simple password or write it down
+where it may be discovered.
+
+#### Audit:
+Run the following command and verify <code>warnpassword</code> conforms to site policy (No less than
+7 days) and is enabled:
+
+<pre><code># grep warnpassword /etc/login.conf
+:warnpassword=7d:\</code></pre>
 
 
+#### Remediation:
+Set the <code>warnpassword</code> parameter to 7 in /etc/login.conf and ensure it is enabled :
+warnpassword=7d
 
+#### CIS Controls:
+Version 7
+4.4 Use Unique Passwords
+Where multi-factor authentication is not supported (such as local administrator, root, or
+service accounts), accounts will use passwords that are unique to that system.
 
-
-
-
-## 
