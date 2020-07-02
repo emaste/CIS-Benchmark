@@ -34,7 +34,7 @@ users' <code>passwordtime</code> conforms to site policy (no more than 365 days)
 </code></pre>
 
 #### Remediation:
-Set the <code>passwordtime</code> parameter to conform to site policy in <code>/etc/login.conf</code> :
+Set the <code>passwordtime</code> parameter for each user group to conform to site policy in <code>/etc/login.conf</code> :
 <pre><code>:passwordtime=365d</code></pre>
 Modify user parameters for all users with a password set to match:
 <pre><code># pw usermod -e 365 [user]</code></pre>
@@ -68,7 +68,7 @@ a secure password. Users caught unaware may choose a simple password or write it
 where it may be discovered.
 
 #### Audit:
-Run the following command and verify <code>warnpassword</code> conforms to site policy (No less than
+Run the following command and verify <code>warnpassword</code> for each user group conforms to site policy (No less than
 7 days) and is enabled:
 
 <pre><code># grep warnpassword /etc/login.conf
@@ -76,7 +76,7 @@ Run the following command and verify <code>warnpassword</code> conforms to site 
 
 
 #### Remediation:
-Set the <code>warnpassword</code> parameter to 7 in <code>/etc/login.conf</code> and ensure it is enabled :
+Set the <code>warnpassword</code> parameter to 7 in <code>/etc/login.conf</code> and ensure it is enabled for each user group :
 <pre><code>warnpassword=7d</code></pre>
 
 #### CIS Controls:
