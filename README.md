@@ -8,7 +8,7 @@ Network Configuration
 
 Logging and Auditing
 
-Cron & Perodic
+Cron & Perodic (x*)
 
 ssh (x)
 
