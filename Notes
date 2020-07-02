@@ -16,6 +16,7 @@ Ensure all users last password change date is in the past - No option on FreeBSD
 Ensure system accounts are secured - No(?) direct translation to FreeBSD
 
 
+
 FileSystem
 6.1.5 Check if the find command is doable
 
