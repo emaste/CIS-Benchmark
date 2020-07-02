@@ -105,15 +105,16 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
-
-## 5.1.4 Ensure cron.allow/cron.deny is restricted to authorized users
+  
+ 
+## 5.1.4 Ensure at/cron/perodic are restricted to authorized users
 
 #### Profile Applicability:
 * Level 1 - Server
 * Level 1 - Workstation
 
 #### Description:
-Configure <code>/etc/cron.d/cron.allow</code> and <code>/etc/at.allow to allow specific users to use these
+Configure <code>/etc/cron.allow</code> and /etc/at.allow to allow specific users to use these
 services. If /etc/cron.allow or /etc/at.allow do not exist, then /etc/at.deny and
 /etc/cron.deny are checked. Any user not specifically defined in those files is allowed to
 use at and cron. By removing the files, only users in /etc/cron.allow and /etc/at.allow
@@ -153,6 +154,3 @@ CIS Controls:
 Version 7
 16 Account Monitoring and Control
 Account Monitoring and Control
-  
- 
-## 5.1.5 
