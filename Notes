@@ -11,6 +11,8 @@ SSH
 User Accounts & Environment
 Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
 5.5.1.2 - No option to switch warning for individual users
+Ensure inactive password lock is 30 days or less - No option on FreeBSD
+Ensure all users last password change date is in the past - No option on FreeBSD
 
 
 FileSystem
