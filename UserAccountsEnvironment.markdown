@@ -9,7 +9,7 @@ and their environment.
 * Level 1 - Workstation
 
 #### Description:
-The <code>passwordtime</code> parameter in <code>/etc/login.conf</code allows an administrator to force
+The <code>passwordtime</code> parameter in <code>/etc/login.conf</code> allows an administrator to force
 passwords to expire once they reach a defined age. It is recommended that the
 <code>passwordtime</code> parameter be set to less than or equal to 365 days.
 
