@@ -124,4 +124,31 @@ Version 7
 16.11 Lock Workstation Sessions After Inactivity
 Automatically lock workstation sessions after a standard period of inactivity.
 
+## 5.5.3 Ensure default group for the root account is GID 0
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>pw</code> command can be used to specify which group the root user belongs to. This
+affects permissions of files that are created by the root user.
+
+#### Rationale:
+Using <code>GID 0</code> for the <code>root</code> account helps prevent <code>root</code> -owned files from accidentally
+becoming accessible to non-privileged users.
+
+#### Audit:
+Run the following command and verify the result is 0 :
+<pre><code># grep "^root:" /etc/passwd | cut -f4 -d:
+0</code></pre>
+
+#### Remediation:
+Run the following command to set the root user default group to GID 0 :
+<pre><code># pw usermod root -g 0</code></pre>
+
+##### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
