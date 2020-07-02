@@ -237,3 +237,44 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software
+
+## 5.5.6 Ensure access to the su command is restricted
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>su</code> command allows a user to run a command or shell as another user. Normally, the <code>su</code> command can be executed by any user. By uncommenting the
+<code>pam_wheel.so</code> statement in <code>/etc/pam.d/su</code> , the <code>su</code> command will only allow users in the
+wheel group to execute <code>su</code> .
+
+#### Rationale:
+Restricting the use of <code>su</code>, provides system administrators better
+control of the escalation of user privileges to execute privileged commands. 
+
+#### Audit:
+Run the following command and verify output includes matching line:
+<pre><code># grep pam_group.so /etc/pam.d/su
+auth requisite pam_group.so no_warn group=wheel root_only fail_safe ruser</code></pre>
+
+Run the following command and verify users in wheel group match site policy. If no users
+are listed, only root will have access to <code>su</code>.
+<pre><code># grep wheel /etc/group
+wheel:x:0:root,[user list]</code></pre>
+
+#### Remediation:
+Add the following line to the <code>/etc/pam.d/su</code> file:
+<pre><code>auth requisite pam_group.so no_warn group=wheel root_only fail_safe ruser</code></pre>
+
+Create a comma separated list of users in the wheel statement in the <code>/etc/group</code> file:
+<pre><code>wheel:x:<GID>:root,[user list]</code></pre>
+Example:
+<pre><code>wheel:x:10:root,user1,user2,user3</code></pre>
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
