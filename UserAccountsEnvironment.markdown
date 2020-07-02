@@ -30,7 +30,7 @@ Run the following command and Review list of users and <code>passwordtime</code>
 users' <code>passwordtime</code> conforms to site policy (no more than 365 days):
 
 <pre><code># grep -E '^[^:]+:[^!*]' /etc/master.passwd | cut -d: -f1,5
-<user>:[passwordtime]
+[user]:[passwordtime]
 </code></pre>
 
 #### Remediation:
@@ -75,12 +75,15 @@ Run the following command and verify <code>warnpassword</code> conforms to site 
 
 
 #### Remediation:
-Set the <code>warnpassword</code> parameter to 7 in /etc/login.conf and ensure it is enabled :
-warnpassword=7d
+Set the <code>warnpassword</code> parameter to 7 in <code>/etc/login.conf</code> and ensure it is enabled :
+<pre><code>warnpassword=7d</code></pre>
 
 #### CIS Controls:
 Version 7
 4.4 Use Unique Passwords
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system.
+
+## 5.5.1.3 Ensure inactive password lock is 30 days or less
+
 
