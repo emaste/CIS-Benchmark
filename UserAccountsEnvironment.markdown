@@ -152,3 +152,55 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+## 5.5.4 Ensure default user umask is 027 or more restrictive
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The default <code>umask</code> determines the permissions of files created by users. The user creating
+the file has the discretion of making their files and directories readable by others via the
+chmod command. Users who wish to allow their files and directories to be readable by
+others by default may choose a different default umask by inserting the umask command
+into the standard shell configuration files ( <code>.profile</code> and <code>.cshrc</code>) in their home
+directories.
+
+#### Rationale:
+Setting a very secure default value for <code>umask</code> ensures that users make a conscious choice
+about their file permissions. A default <code>umask</code> setting of <code>077</code> causes files and directories
+created by users to not be readable by any other user on the system. A <code>umask</code> of <code>027</code> would
+make files and directories readable by users in the same Unix group, while a <code>umask</code> of <code>022</code>
+would make files readable by every user on the system.
+
+#### Audit:
+Run the following commands and verify all umask lines returned are 027 or more
+restrictive.
+<pre><code># grep "umask" /etc/profile ~/.cshrc /etc/profile
+umask 027</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/profile</code> and <code>~/.cshrc files</code> (and the appropriate
+files for any other shell supported on your system) and add or edit any <code>umask</code> parameters
+as follows:
+<pre><code>umask 027</code></pre>
+
+#### Notes:
+The audit and remediation in this recommendation apply to <code>sh</code> and <code>tcsh</code>. If other shells
+are supported on the system, it is recommended that their configuration files also are
+checked.
+
+Other methods of setting a default user <code>umask</code> exist however the shell configuration files
+are the last run and will override other settings if they exist therefor our recommendation
+is to configure in the shell configuration files. If other methods are in use in your
+environment they should be audited and the shell configs should be verified to not
+override.
+
+#### CIS Controls:
+Version 7
+5.1 Establish Secure Configurations
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+13 Data Protection
+Data Protection
