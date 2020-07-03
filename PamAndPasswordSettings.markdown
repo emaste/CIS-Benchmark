@@ -102,8 +102,7 @@ Verify password hashing algorithm is <code>sha512</code>. This setting is config
 <code>passwd_format</code> <code>sha512</code> option found in <code>/etc/login.conf</code>
 
 Run the following command:
-pre><code># grep -E '^\s*password\s+sufficient\s+pam_unix.so\s+.*sha512\s*.*$'
-/etc/pam.d/password-auth /etc/pam.d/system-auth</code></pre>
+<pre><code># grep -E passwd_format /etc/login.conf</code></pre>
 
 The output should be similar to:
 
