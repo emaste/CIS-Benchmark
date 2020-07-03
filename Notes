@@ -17,6 +17,7 @@ Ensure system accounts are secured - No(?) direct translation to FreeBSD
 
 PAM and Password Settings
 (5.2.2)Ensure lockout for failed password attempts is configured - Not an option on FreeBSD
+(5.2.3)Ensure password reuse is limited - No option on FreeBSD
 
 FileSystem
 6.1.5 Check if the find command is doable
