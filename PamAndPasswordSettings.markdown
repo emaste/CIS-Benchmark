@@ -58,14 +58,14 @@ Run the following command and verify that retry conforms to organization policy.
 <pre><code># grep pam_passwdqc.so /etc/pam.d/passwd</code></pre>
 Output should be similar to:
 
-<pre><code>password        requisite       pam_passwdqc.so         min=disabled,disabled,disabled,disabled,14</code></pre>
+<pre><code>password        requisite       pam_passwdqc.so         min=disabled,disabled,disabled,disabled,14 enforce=everyone</code></pre>
 
 
 #### Remediation:
 Edit the file <code>/etc/pam.d/passwd</code> and add or modify the following line for to ensur
 password length and complexity conform to site policy
 
-<pre><code>password        requisite       pam_passwdqc.so         min=disabled,disabled,disabled,disabled,14</code></pre>
+<pre><code>password        requisite       pam_passwdqc.so         min=disabled,disabled,disabled,disabled,14 enforce=everyone</code></pre>
 
 
 #### Notes:
@@ -78,3 +78,7 @@ Version 7
 4.4 Use Unique Passwords
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system
+
+## 5.4.2 
+
+
