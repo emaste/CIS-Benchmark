@@ -42,4 +42,53 @@ This section describes services that are installed on systems that specifically 
 these services. If any of these services are not required, it is recommended that they be
 disabled or deleted from the system to reduce the potential attack surface.
 
-## 
+## 2.2.1 Time Synchronization
+
+It is recommended that physical systems and virtual guests lacking direct access to the
+physical host's clock be configured to synchronize their time using NTP
+
+## 2.2.1.1 Ensure time synchronization is in use
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+System time should be synchronized between all systems in an environment. This is
+typically done by establishing an authoritative time server or set of servers and having all
+systems synchronize their clocks to them.
+
+#### Rationale:
+Time synchronization is important to support time sensitive security mechanisms like
+Kerberos and also ensures log files have consistent time records across the enterprise,
+which aids in forensic investigations.
+
+#### Audit:
+On physical systems or virtual systems where host based time synchronization is not
+available verify that NTP is installed.
+
+Run the following command to verify that NTP is installed
+# rpm -q chrony
+chrony-<VERSION>
+On virtual systems where host based time synchronization is available consult your
+virtualization software documentation and verify that host based synchronization is in use.
+
+#### Remediation:
+On physical systems or virtual systems where host based time synchronization is not
+available install chrony:
+Run the folloing command to install chrony:
+# dnf install chrony
+On virtual systems where host based time synchronization is available consult your
+virtualization software documentation and setup host based synchronization.
+
+#### Notes:
+systemd-timesyncd is part of systemd. Some versions of systemd have been compiled
+without systemd-timesycnd. On these distributions, chrony or NTP should be used instead
+of systemd-timesycnd.
+
+#### CIS Controls:
+Version 7
+
+6.1 Utilize Three Synchronized Time Sources
+Use at least three synchronized time sources from which all servers and network devices
+retrieve time information on a regular basis so that timestamps in logs are consistent.
