@@ -9,13 +9,14 @@ SSH
 5.2.20 Incorrect way of changing the variable -NEEDS FIXING
 
 User Accounts & Environment
-Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
+(5.5.1.2) Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
 5.5.1.2 - No option to switch warning for individual users
 Ensure inactive password lock is 30 days or less - No option on FreeBSD
 Ensure all users last password change date is in the past - No option on FreeBSD
 Ensure system accounts are secured - No(?) direct translation to FreeBSD
 
-
+PAM and Password Settings
+(5.2.2)Ensure lockout for failed password attempts is configured - Not an option on FreeBSD
 
 FileSystem
 6.1.5 Check if the find command is doable
