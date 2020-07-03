@@ -12,7 +12,7 @@ Cron & Perodic (x*)
 
 ssh (x)
 
-PAM and Password Settings
+PAM and Password Settings (x)
 
 User accounts & environment (x)
 
