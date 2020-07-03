@@ -79,6 +79,59 @@ Version 7
 Where multi-factor authentication is not supported (such as local administrator, root, or
 service accounts), accounts will use passwords that are unique to that system
 
-## 5.4.2 
+## 5.4.2 Ensure password hashing algorithm is SHA-512
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
 
+#### Description:
+The commands below ensure password encryption is in <code>sha512</code> (a much stronger
+hashing algorithm). All existing accounts will need to perform a password change to
+upgrade the stored hashes to the new algorithm.
+
+#### Rationale:
+The <code>SHA-512</code> algorithm provides much stronger hashing than MD5, thus providing
+additional protection to the system by increasing the level of effort for an attacker to
+successfully determine passwords.
+
+Note that these change only apply to accounts configured on the local system.
+
+#### Audit:
+Verify password hashing algorithm is <code>sha512</code>. This setting is configured with the
+<code>passwd_format</code> <code>sha512</code> option found in <code>/etc/login.conf</code>
+
+Run the following command:
+pre><code># grep -E '^\s*password\s+sufficient\s+pam_unix.so\s+.*sha512\s*.*$'
+/etc/pam.d/password-auth /etc/pam.d/system-auth</code></pre>
+
+The output should be similar to:
+
+<pre><code>:passwd_format=sha512:\</code></pre>
+
+#### Remediation:
+Set password hashing algorithm to sha512. Modify or enable the <code>passwd_format</code> lines in the <code>/etc/login.conf</code>file for each user group.
+
+<pre><code>:passwd_format=sha512:\</code></pre>
+
+Than run the following command:
+
+<pre><code># cap_mkdb /etc/login.conf</code></pre>
+
+#### Notes:
+
+Additional module options may be set, recommendation only covers those listed here.
+If it is determined that the password algorithm being used is not <code>SHA-512</code>, once it is
+changed, it is recommended that all user ID's be immediately expired and forced to change
+their passwords on next login. To accomplish that, the following commands can be used.
+Any system accounts that need to be expired should be carefully done separately by the
+system administrator to prevent any potential problems.
+
+<pre><code># awk -F: '( $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.conf)"' && $1 !=
+"nfsnobody" ) { print $1 }' /etc/passwd | xargs -n 1 chage -d 0</code></pre>
+
+#### CIS Controls:
+Version 7
+
+16.4 Encrypt or Hash all Authentication Credentials
+Encrypt or hash with a salt all authentication credentials when stored
