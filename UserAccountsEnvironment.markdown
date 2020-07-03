@@ -38,6 +38,8 @@ Set the <code>passwordtime</code> parameter for each user group to conform to si
 <pre><code>:passwordtime=365d</code></pre>
 Modify user parameters for all users with a password set to match:
 <pre><code># pw usermod -e 365 [user]</code></pre>
+After the change, run the following command:
+<pre><code># cap_mkdb /etc/login.conf</code></pre>
 
 #### Notes:
 Note: A value of -1 will disable password expiration. Additionally the password expiration
@@ -78,6 +80,10 @@ Run the following command and verify <code>warnpassword</code> for each user gro
 #### Remediation:
 Set the <code>warnpassword</code> parameter to 7 in <code>/etc/login.conf</code> and ensure it is enabled for each user group :
 <pre><code>warnpassword=7d</code></pre>
+
+Then run the following command:
+<pre><code># cap_mkdb /etc/login.conf</code></pre>
+
 
 #### CIS Controls:
 Version 7
