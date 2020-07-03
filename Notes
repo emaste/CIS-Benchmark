@@ -1,7 +1,7 @@
 Issues:
 
 Cron/Perodic:
-5.1.4 - Location of allow/deny files
+5.1.4 - Location of allow/deny files (personal note for Drew)
 
 SSH
 5.2.1 Output is off
@@ -20,7 +20,7 @@ PAM and Password Settings
 (5.2.3)Ensure password reuse is limited - No option on FreeBSD
 
 FileSystem
-6.1.5 Check if the find command is doable
+6.1.5 Check if the find command is doable (personal note)
 
 User and Group Settings
 6.2.3 Need to test bash script
