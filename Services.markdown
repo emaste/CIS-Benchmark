@@ -36,18 +36,21 @@ Version 7
 Ensure that only network ports, protocols, and services listening on a system with
 validated business needs, are running on each system.
 
+
 ## 2.2 Special Purpose Services
 
 This section describes services that are installed on systems that specifically need to run
 these services. If any of these services are not required, it is recommended that they be
 disabled or deleted from the system to reduce the potential attack surface.
 
+
 ## 2.2.1 Time Synchronization
 
 It is recommended that physical systems and virtual guests lacking direct access to the
 physical host's clock be configured to synchronize their time using NTP
 
-## 2.2.1.1 Ensure time synchronization is in use
+
+## 2.2.1.1 Ensure NTP time synchronization is in use
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -65,26 +68,22 @@ which aids in forensic investigations.
 
 #### Audit:
 On physical systems or virtual systems where host based time synchronization is not
-available verify that NTP is installed.
+available verify that NTP is configured and enabled.
 
-Run the following command to verify that NTP is installed
-# rpm -q chrony
-chrony-<VERSION>
-On virtual systems where host based time synchronization is available consult your
-virtualization software documentation and verify that host based synchronization is in use.
+Run the following command to verify that NTP is in use:
+
+<pre><code># grep ntpd_enable /etc/rc.conf
+ntpd_enable=YES</code></pre>
 
 #### Remediation:
-On physical systems or virtual systems where host based time synchronization is not
-available install chrony:
-Run the folloing command to install chrony:
-# dnf install chrony
-On virtual systems where host based time synchronization is available consult your
-virtualization software documentation and setup host based synchronization.
 
-#### Notes:
-systemd-timesyncd is part of systemd. Some versions of systemd have been compiled
-without systemd-timesycnd. On these distributions, chrony or NTP should be used instead
-of systemd-timesycnd.
+Add the following line to <code>/etc/rc.conf</code> 
+
+<pre><code>ntpd_enable=YES</code></pre>
+
+NTP can be started immediately with
+
+<pre><code># service ntpd start</code></pre>
 
 #### CIS Controls:
 Version 7
@@ -92,3 +91,4 @@ Version 7
 6.1 Utilize Three Synchronized Time Sources
 Use at least three synchronized time sources from which all servers and network devices
 retrieve time information on a regular basis so that timestamps in logs are consistent.
+
