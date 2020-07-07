@@ -111,7 +111,7 @@ If the system does not export NFS shares, it is recommended that the NFS be disa
 reduce the remote attack surface.
 
 ##### Audit:
-Run the following command to verify there is no output:
+Run the following command and verify there is no output:
 <pre><code># grep nfs_client_enable /etc/rc.conf</code></pre>
 
 
@@ -149,7 +149,7 @@ If the system does not require <code>rpc</code> based services, it is recommende
 disabled to reduce the remote attack surface.
 
 #### Audit:
-Run the following command to verify there is no output:
+Run the following command and verify there is no output:
 <pre><code># grep rpcbind_enable /etc/rc.conf</code></pre>
 
 #### Remediation:
@@ -159,6 +159,43 @@ Remove the following line from <code>/etc/rc.conf</code> to disable <code>rcbind
 #### Impact:
 Because <code>RPC</code>-based services rely on <code>rpcbind</code> to make all connections with incoming client
 requests, <code>rpcbind</code> must be available before any of these services start
+
+#### CIS Controls:
+Version 7
+
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
+
+## 2.2.5 Ensure NIS Server is not enabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The Network Information Service (NIS) (formally known as Yellow Pages) is a client-server
+directory service protocol for distributing system configuration files. The NIS server is a
+collection of programs that allow for the distribution of configuration files.
+
+#### Rationale:
+The NIS service is inherently an insecure system that has been vulnerable to DOS attacks,
+buffer overflows and has poor authentication for querying NIS maps. NIS generally has
+been replaced by such protocols as Lightweight Directory Access Protocol (LDAP). It is
+recommended that the service be disabled and other, more secure services be used
+
+#### Audit:
+Run the following command and verify there is no output:
+<pre><code># grep nis_client_enable /etc/rc.conf</code></pre>
+
+#### Remediation:
+Remove the following line from <code>/etc/rc.conf</code> to disable <code>NIS</code>:
+<pre><code>nis_client_enable="YES"</code></pre>
+
+
+#### Notes:
+Additional methods of disabling a service exist. Consult your distribution documentation
+for appropriate methods.
 
 #### CIS Controls:
 Version 7
