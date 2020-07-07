@@ -92,3 +92,5 @@ Version 7
 Use at least three synchronized time sources from which all servers and network devices
 retrieve time information on a regular basis so that timestamps in logs are consistent.
 
+## 2.2.1.2 
+
