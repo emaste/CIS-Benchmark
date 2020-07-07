@@ -2,7 +2,7 @@
 
 Initial Setup
 
-Services
+Services (x)
 
 Network Configuration
 
