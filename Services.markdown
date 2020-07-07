@@ -73,13 +73,13 @@ available verify that NTP is configured and enabled.
 Run the following command to verify that NTP is in use:
 
 <pre><code># grep ntpd_enable /etc/rc.conf
-ntpd_enable=YES</code></pre>
+ntpd_enable="YES"</code></pre>
 
 #### Remediation:
 
 Add the following line to <code>/etc/rc.conf</code> 
 
-<pre><code>ntpd_enable=YES</code></pre>
+<pre><code>ntpd_enable="YES"</code></pre>
 
 NTP can be started immediately with
 
@@ -92,7 +92,40 @@ Version 7
 Use at least three synchronized time sources from which all servers and network devices
 retrieve time information on a regular basis so that timestamps in logs are consistent.
 
-## 2.2.1 SMTP
+## 2.2.2 SMTP
 
 
+## 2.2.3 Ensure NFS is not enabled
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The Network File System (NFS) is one of the first and most widely distributed file systems
+in the UNIX environment. It provides the ability for systems to mount file systems of other
+servers through the network.
+
+##### Rationale:
+If the system does not export NFS shares, it is recommended that the NFS be disabled to
+reduce the remote attack surface.
+
+##### Audit:
+Run the following command to verify there is no output:
+<pre><code># grep nfs_client_enable /etc/rc.conf</code></pre>
+
+
+#### Remediation:
+Remove the following line from <code>/etc/rc.conf</code> to disable <code>nfs</code>:
+<pre><code># nfs_client_enable="YES"</code></pre>
+
+#### Notes:
+Additional methods of disabling a service exist. Consult your distribution documentation
+for appropriate methods.
+
+#### CIS Controls:
+Version 7
+
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
