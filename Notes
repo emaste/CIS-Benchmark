@@ -4,6 +4,9 @@ Services:
 2.2.1.1 - Is Chrony setup needed? I included a ntpd setup, should I also have a section for installing/configuring chrony?
 2.2.2 - SMTP - should smtp be disabled? or set to send-only?
 
+Network Configuration:
+(3.1.2) packet redirect sending - Is this possible on FreeBSD?
+
 Cron/Perodic:
 5.1.4 - Location of allow/deny files (personal note for Drew)
 
