@@ -9,12 +9,10 @@ Network Configuration:
 (3.2.3) Ensure secure ICMP redirects are not accepted - Neithe inet6(4) or inet(4) have this parameter, is this doable with anything else?
 
 Cron/Perodic:
-5.1.4 - Location of allow/deny files (personal note for Drew)
+5.1.4 - Secure at/cron/periodic to authorized users - Does periodic have allow/deny files? Couldn't locate them.
 
 SSH
-5.2.1 Output is off
-5.2.2 Grep search peramitors are not working
-5.2.20 Incorrect way of changing the variable -NEEDS FIXING
+5.2.20 Incorrect way of changing the variable -NEEDS FIXING (personal note)
 
 User Accounts & Environment
 (5.5.1.2) Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
