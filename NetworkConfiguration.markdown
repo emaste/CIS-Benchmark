@@ -38,3 +38,7 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software
+
+## 3.1.2 Ensure packet redirect sending is disabled 
+
+
