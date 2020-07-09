@@ -96,7 +96,7 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
 
-## Ensure ICMP redirects are not accepted
+## 3.2.2 Ensure ICMP redirects are not accepted
 
 #### Profile Applicability:
 * Level 1 - Server
@@ -149,3 +149,5 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software
+
+## 3.2.3 
