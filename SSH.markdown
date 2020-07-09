@@ -81,9 +81,10 @@ authorized users access the system.
 
 #### Audit:
 
-Run the following command:
+Run the following commands:
 
-<pre><code>sshd -T | grep -E '^\s*(allow|deny)(users|groups)\s+\S+'</code></pre> 
+<pre><code># sshd -T | grep -E allow
+# sshd -T | grep -E deny</code></pre> 
 
 Verify that the output matches at least one of the following lines:
 
