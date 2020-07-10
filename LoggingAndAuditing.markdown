@@ -83,4 +83,47 @@ Ensure that local logging has been enabled on all systems and networking devices
 Enable system logging to include detailed information such as an event source, date,
 user, timestamp, source addresses, destination addresses, and other useful elements.
 
-## 4.1.1.3 Ensure audit_backlog_limit is sufficient
+## 4.1.2 Configure Data Retention
+
+When auditing, it is important to carefully configure the storage requirements for audit
+logs. By default, auditd will max out the log files at 2MB and retain only 4 copies of them.
+Older versions will be deleted. It is possible on a system that the 20 MBs of audit logs may
+fill up the system causing loss of audit data. While the recommendations here provide
+guidance, check your site policy for audit storage requirements.
+
+## 4.1.2.1 Ensure audit log storage size is configured (Scored)
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Configure the maximum size of the audit log file. Once the log reaches the maximum size, it
+will be rotated and a new log file will be started.
+
+#### Rationale:
+It is important that an appropriate size is determined for log files so that they do not impact
+the system and audit data is not lost.
+
+#### Audit:
+Run the following command and ensure output is in compliance with site policy:
+<pre><code># grep filesz: /etc/security/audit_control
+filesz: [bytes]</code></pre>
+
+#### Remediation:
+Set the following parameter in <code>/etc/security/audit_control</code> in accordance with site policy:
+<pre><code>filesz: [bytes]</code></pre>
+
+#### Notes:
+
+For convenience, the log size may be	expressed with suffix letters: B (Bytes), K (Kilobytes), M (Megabytes), or G (Gigabytes). For example, 2M is	the same as 2097152.
+
+Other methods of log rotation may be appropriate based on site policy.
+
+#### CIS Controls:
+Version 7
+
+6.4 Ensure adequate storage for logs
+
+Ensure that all systems that store logs have adequate storage space for the logs
+generated.
