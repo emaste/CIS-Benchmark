@@ -127,3 +127,33 @@ Version 7
 
 Ensure that all systems that store logs have adequate storage space for the logs
 generated.
+
+## 4.1.2.1 Ensure audit logs are not automatically deleted
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+The <code>expire-after</code> setting determines whent he audit log file will expire and be removed. This may be after a time period	has passed since the file was last written to	or when	the aggregate of all the trail files have reached a specified size or a combination of both. If no expire-after parameter is	given then audit log files will	not expire and be	removed	by the audit control system.
+
+#### Rationale:
+In high security contexts, the benefits of maintaining a long audit history exceed the cost of
+storing the audit history.
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep expire-after: /etc/security/audit_control</code></pre>
+There should be no output.
+
+#### Remediation:
+Remove the following parameter in <code>/etc/security/audit_control</code>:
+<pre><code>expire-after: [time]</code></pre>
+
+#### CIS Controls:
+Version 7
+
+6.4 Ensure adequate storage for logs
+
+Ensure that all systems that store logs have adequate storage space for the logs
+generated.
