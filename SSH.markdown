@@ -769,5 +769,6 @@ Run the following commands:
 
 #### CIS Controls:
 Version 7
+
 14.4 Encrypt All Sensitive Information in Transit
 Encrypt all sensitive information in transit.
