@@ -157,3 +157,27 @@ Version 7
 
 Ensure that all systems that store logs have adequate storage space for the logs
 generated.
+
+#### Ensure system is disabled when audit logs are full
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+Description:
+The auditd daemon can be configured to halt the system when the audit logs are full.
+Rationale:
+In high security contexts, the risk of detecting unauthorized access or nonrepudiation
+exceeds the benefit of the system's availability.
+Audit:
+Run the following commands and verify output matches:
+# grep space_left_action /etc/audit/auditd.conf
+space_left_action = email
+# grep action_mail_acct /etc/audit/auditd.conf
+action_mail_acct = root
+# grep admin_space_left_action /etc/audit/auditd.conf
+admin_space_left_action = halt
+Remediation:
+Set the following parameters in /etc/audit/auditd.conf:
+space_left_action = email
+action_mail_acct = root
+admin_space_left_action = hal
