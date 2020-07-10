@@ -67,7 +67,7 @@ Verify that auditd is running.
 Add the following line <code>/etc/rc.conf</code>
 <pre><code>auditd_enable="YES"</code></pre>
 Run the following command to enable auditd:
-<pre><code># service auditd start</code></start>
+<pre><code># service auditd start</code></pre>
 
 #### Notes:
 Additional methods of enabling a service exist. Consult your distribution documentation for
