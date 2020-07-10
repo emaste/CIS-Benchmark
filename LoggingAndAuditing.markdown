@@ -10,32 +10,36 @@ using tools included in most distributions
 The capturing of system events provides system administrators with information to allow
 them to determine if unauthorized access to their system is occurring
 
-## 4.1.1.1  Ensure auditd service is enabled 
+## 4.1.1.1 Ensure auditd is installed
 
-Profile Applicability:
- Level 2 - Server
- Level 2 - Workstation
-Description:
-Turn on the auditd daemon to record system events.
-Rationale:
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+auditd is the userspace component to the FreeBSD Auditing System. It's responsible for
+writing audit records to the disk
+
+#### Rationale:
 The capturing of system events provides system administrators with information to allow
 them to determine if unauthorized access to their system is occurring.
-Audit:
-Run the following command to verify auditd is enabled:
-# systemctl is-enabled auditd
-enabled
-Verify result is "enabled".
-273 | P a g e
-Remediation:
-Run the following command to enable auditd:
-# systemctl --now enable auditd
-Notes:
-Additional methods of enabling a service exist. Consult your distribution documentation for
-appropriate methods.
-CIS Controls:
+
+#### Audit:
+Run the following command and verify auditd is installed:
+
+# UPDATE THIS
+
+#### Remediation:
+Run the following command to Install auditd
+<pre><code># pkg install auditd</code></pre>
+
+#### CIS Controls:
 Version 7
+
 6.2 Activate audit logging
 Ensure that local logging has been enabled on all systems and networking devices.
+
 6.3 Enable Detailed Logging
 Enable system logging to include detailed information such as an event source, date,
 user, timestamp, source addresses, destination addresses, and other useful elements.
+
