@@ -6,12 +6,13 @@ Services:
 
 Network Configuration:
 (3.1.2) packet redirect sending - Is this possible on FreeBSD?
-(3.2.3) Ensure secure ICMP redirects are not accepted - Neithe inet6(4) or inet(4) have this parameter, is this doable with anything else?
+(3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?
 
 Auditing and Logging.
 4.1.1.1  Ensure auditd is installed - Is there a way to check if auditd is installed? I know it's normally packages with the base OS
 (4.1.1.3)  Ensure auditing for processes that start prior to auditd is enabled - Couldn't find any documentation on this.
 (4.1.1.3)  Ensure audit_backlog_limit is sufficient - Can't find documentation on changing this in FreeBSD
+(4.1.3) Ensure changes to system administration scope (sudoers) is collected - Is this possible on FreeBSD?
 
 Cron/Perodic:
 5.1.4 - Secure at/cron/periodic to authorized users - Does periodic have allow/deny files? Couldn't locate them.
