@@ -180,3 +180,4 @@ Other policy flags may be in use, ensure that <code>ahlt</code> is included.
 #### Remediation:
 Set the following parameters in <code>/etc/audit/auditd_control</code>:
 <pre><code>policy:ahlt</code></pre>
+
