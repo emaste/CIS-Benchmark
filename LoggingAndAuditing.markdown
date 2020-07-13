@@ -181,3 +181,47 @@ Other policy flags may be in use, ensure that <code>ahlt</code> is included.
 Set the following parameters in <code>/etc/audit/auditd_control</code>:
 <pre><code>policy:ahlt</code></pre>
 
+## 4.1.3 Ensure login and logout events are collected
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Monitor login and logout events. The parameters below track changes to files associated
+with login/logout events. The file /var/log/faillog tracks failed events from login. The
+file /var/log/lastlog maintain records of the last time a user successfully logged in.
+
+#### Rationale:
+Monitoring login/logout events could provide a system administrator with information
+associated with brute force attacks against user logins.
+
+#### Audit:
+Run the following commands:
+# grep logins /etc/audit/rules.d/*.rules
+# auditctl -l | grep logins
+Verify output of both includes:
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+
+#### Remediation:
+Edit or create a file in the /etc/audit/rules.d/ directory ending in .rules
+Example: vi /etc/audit/rules.d/audit.rules
+and add the following lines:
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+
+Version 7
+
+4.9 Log and Alert on Unsuccessful Administrative Account Login
+Configure systems to issue a log entry and alert on unsuccessful logins to an
+administrative account.
+
+16.13 Alert on Account Login Behavior Deviation
+Alert when users deviate from normal login behavior, such as time-of-day, workstation
+location and duration.
