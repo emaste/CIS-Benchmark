@@ -163,21 +163,20 @@ generated.
 #### Profile Applicability:
 * Level 2 - Server
 * Level 2 - Workstation
-Description:
+
+#### Description:
 The auditd daemon can be configured to halt the system when the audit logs are full.
-Rationale:
+
+#### Rationale:
 In high security contexts, the risk of detecting unauthorized access or nonrepudiation
 exceeds the benefit of the system's availability.
-Audit:
-Run the following commands and verify output matches:
-# grep space_left_action /etc/audit/auditd.conf
-space_left_action = email
-# grep action_mail_acct /etc/audit/auditd.conf
-action_mail_acct = root
-# grep admin_space_left_action /etc/audit/auditd.conf
-admin_space_left_action = halt
-Remediation:
-Set the following parameters in /etc/audit/auditd.conf:
-space_left_action = email
-action_mail_acct = root
-admin_space_left_action = hal
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep policy: /etc/security/audit_control
+policy:ahlt</code></pre>
+Other policy flags may be in use, ensure that <code>ahlt</code> is included.
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:ahlt</code></pre>
