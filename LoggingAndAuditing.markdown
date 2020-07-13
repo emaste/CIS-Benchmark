@@ -128,7 +128,7 @@ Version 7
 Ensure that all systems that store logs have adequate storage space for the logs
 generated.
 
-## 4.1.2.1 Ensure audit logs are not automatically deleted
+## 4.1.2.2 Ensure audit logs are not automatically deleted
 
 #### Profile Applicability:
 * Level 2 - Server
@@ -158,7 +158,7 @@ Version 7
 Ensure that all systems that store logs have adequate storage space for the logs
 generated.
 
-#### Ensure system is disabled when audit logs are full
+## 4.1.2.3 Ensure system is disabled when audit logs are full
 
 #### Profile Applicability:
 * Level 2 - Server
