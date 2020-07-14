@@ -217,3 +217,41 @@ Version 7
 
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+## 3.2.5 Ensure IPv6 router advertisements are not accepted
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+This setting disables the system's ability to accept IPv6 router advertisements.
+
+#### Rationale:
+It is recommended that systems do not accept router advertisements as they could be
+tricked into routing traffic to compromised machines. Setting hard routes within the
+system (usually a single default route to a trusted router) protects the system from bad
+routes.
+
+#### Audit:
+Run the following commands and verify output matches:
+<pre><code># sysctl net.inet6.ip6.accept_rtadv
+net.inet6.ip6.accept_rtadv: 0</code></pre>
+
+
+#### Remediation:
+Set the following parameters in <code>/etc/sysctl.conf</code>:
+
+<pre><code>net.inet6.ip6.accept_rtadv=0</code></pre>
+
+Run the following commands to set the active kernel parameters:
+
+<pre><code># sysctl net.inet6.ip6.accept_rtadv=0</code></pre>
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
