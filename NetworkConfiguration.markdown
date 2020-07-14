@@ -152,7 +152,7 @@ be significantly multiplied.
 #### Audit:
 Run the following commands and verify output matches:
 <pre><code># sysctl net.inet.icmp.bmcastecho
-net.inet.icmp.bmcastecho: 0</code><pre>
+net.inet.icmp.bmcastecho: 0</code></pre>
 
 
 #### Remediation:
