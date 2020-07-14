@@ -197,19 +197,14 @@ Monitoring login/logout events could provide a system administrator with informa
 associated with brute force attacks against user logins.
 
 #### Audit:
-Run the following commands:
-# grep logins /etc/audit/rules.d/*.rules
-# auditctl -l | grep logins
-Verify output of both includes:
--w /var/log/faillog -p wa -k logins
--w /var/log/lastlog -p wa -k logins
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:lo</code></pre>
+Other policy flags may be in use, ensure that <code>lo</code> is included.
 
 #### Remediation:
-Edit or create a file in the /etc/audit/rules.d/ directory ending in .rules
-Example: vi /etc/audit/rules.d/audit.rules
-and add the following lines:
--w /var/log/faillog -p wa -k logins
--w /var/log/lastlog -p wa -k logins
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:lo</code></pre>
 
 #### Notes:
 Reloading the auditd config to set active settings may require a system reboot.
