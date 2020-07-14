@@ -9,6 +9,8 @@ Network Configuration:
 (3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?
 (3.2.6) Ensure bogus ICMP responses are ignored - No option on FreeBSD
 (3.2.7) Ensure Reverse Path Filtering is enabled - No option on freebsd
+(3.3.1) Ensure DCCP is disabled - Looks like DCCP isn't available on FreeBSD?
+
 
 Auditing and Logging.
 4.1.1.1  Ensure auditd is installed - Is there a way to check if auditd is installed? I know it's normally packages with the base OS
