@@ -96,58 +96,38 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
 
-## 3.2.2 Ensure ICMP redirects are not accepted
+## 3.2.2 Ensure ICMP redirects are not accepted (Scored)
 
 #### Profile Applicability:
+
 * Level 1 - Server
 * Level 1 - Workstation
 
 #### Description:
-ICMP redirect messages are packets that convey routing information and tell your host
-(acting as a router) to send packets via an alternate path. It is a way of allowing an outside
-routing device to update your system routing tables. By setting
-<code>net.inet.ip.redirect</code> and <code>net.inet6.ip6.redirect</code> to 0,
-the system will not accept any ICMP redirect messages, and therefore, won't allow
-outsiders to update the system's routing tables.
+ICMP redirect messages are packets that convey routing information and tell your host (acting as a router) to send packets via an alternate path. It is a way of allowing an outside routing devce to update your system routing tables. By setting the <code>net.inet.icmp.drop_redirect</code> sysctl to 1, the system will not accept any ICMP redirect messages, and therefore, won’t allow outsiders to update the system’s routing tables.
 
 #### Rationale:
-Attackers could use bogus ICMP redirect messages to maliciously alter the system routing
-tables and get them to send packets to incorrect networks and allow your system packets
-to be captured.
+Attackers could use bogus ICMP redirect messages to maliciously alter the system routing tables and get them to send packets to incorrect networks and allow your system packets to be captured.
 
 #### Audit:
-Run the following commands and verify outputs match:
+Run the following commands and verify output matches:
 
-<pre><code># sysctl net.inet.ip.redirect
-net.inet.ip.redirect: 0</code></pre>
-
-<pre><code># grep "net\.inet\.ip\.redirect" /etc/sysctl.conf
-net.inet.ip.redirect=0</code></pre>
-
-<pre><code># sysctl net.inet6.ip6.redirect
-net.inet6.ip6.redirect: 0</code></pre>
-
-<pre><code># grep "net\.inet6\.ip6\.redirect" /etc/sysctl.conf
-net.inet6.ip6.redirect=0</code></pre>
+<pre><code># sysctl net.inet.icmp.drop_redirect
+net.inet.icmp.drop_redirect: 1</code></pre>
 
 #### Remediation:
-Set the following parameters in /etc/sysctl.conf
+Set the following parameters in <code>/etc/sysctl.conf</code>:
 
-<pre><code>net.inet.ip.redirect = 0
-net.inet6.ip6.redirect = 0</code></pre>
-
+<pre><code>net.inet.icmp.drop_redirect=1</code></pre>
 Run the following commands to set the active kernel parameters:
 
-<pre><code># sysctl -w net.inet.ip.redirect=0
-# sysctl -w net.inet6.ip6.redirect=0</code></pre>
-
+<pre><code># sysctl net.inet.icmp.drop_redirect=1</code></pre>
 
 #### CIS Controls:
 
 Version 7
 
 5.1 Establish Secure Configurations
-Maintain documented, standard security configuration standards for all authorized
-operating systems and software
+Maintain documented, standard security configuration standards for all authorized operating systems and software.
 
 ## 3.2.3 
