@@ -255,3 +255,14 @@ Version 7
 
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+# 3.3  Uncommon Network Protocols
+
+The FreeBSD kernel modules support several network protocols that are not commonly used.
+If these protocols are not needed, it is recommended that they be disabled in the kernel.
+**Note:** This should not be considered a comprehensive list of uncommon network protocols,
+you may wish to consider additions to those listed here for your environment.
+
+## 3.3.1 Ensure DCCP is disabled
+
+
