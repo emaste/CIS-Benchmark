@@ -130,4 +130,46 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized operating systems and software.
 
-## 3.2.3 
+## 3.2.3 Ensure broadcast ICMP requests are ignored (Scored)
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Setting <code>net.inet.icmp.bmcastecho</code> to 0 will cause the system to ignore all
+ICMP echo and timestamp requests to broadcast and multicast addresses.
+
+#### Rationale:
+Accepting ICMP echo and timestamp requests with broadcast or multicast destinations for
+your network could be used to trick your host into starting (or participating) in a Smurf
+attack. A Smurf attack relies on an attacker sending large amounts of ICMP broadcast
+messages with a spoofed source address. All hosts receiving this message and responding
+would send echo-reply messages back to the spoofed address, which is probably not
+routable. If many hosts respond to the packets, the amount of traffic on the network could
+be significantly multiplied.
+
+#### Audit:
+Run the following commands and verify output matches:
+<pre><code># sysctl net.inet.icmp.bmcastecho
+net.inet.icmp.bmcastecho: 0</code><pre>
+
+
+#### Remediation:
+Set the following parameters in <code>/etc/sysctl.conf</code>:
+
+<pre><code>net.inet.icmp.bmcastecho=0</code></pre>
+Run the following commands to set the active kernel parameters:
+
+<pre><code># sysctl net.inet.icmp.bmcastecho=0</code></pre>
+
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+## 3.2.4 
