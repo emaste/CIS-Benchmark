@@ -263,6 +263,11 @@ If these protocols are not needed, it is recommended that they be disabled in th
 **Note:** This should not be considered a comprehensive list of uncommon network protocols,
 you may wish to consider additions to those listed here for your environment.
 
-## 3.3.1 Ensure DCCP is disabled
+# 3.4 Firewall Configuration
+
+A firewall Provides defense against external and internal threats by refusing unauthorized
+connections, to stop intrusion and provide a strong method of access control policy.
+this section is intended only to ensure the resulting firewall rules are in place, not how they
+are configured.
 
 
