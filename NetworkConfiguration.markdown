@@ -370,3 +370,47 @@ Version 7
 Apply host-based firewalls or port filtering tools on end systems, with a default-deny
 rule that drops all traffic except those services and ports that are explicitly allowed.
 
+
+## 3.4.1.3 Ensure IPFILTER (IPF) service is enabled and running
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Ensure that PF service is enabled to protect your system
+
+#### Rationale:
+<code>IPFILTER</code>, also known as IPF, is a cross-platform, open source firewall. <code>IPFILTER</code> is a kernel-side firewall and NAT mechanism that can be controlled and monitored by userland programs.
+
+#### Audit:
+Run the following command to verify that IPF and its dependencies are enabled:
+<pre><code># egrep "ipfilter_enable|ipfilter_rules|ipv6_ipfilter_rules|ipmon_enable|ipmon_flags" /etc/rc.conf
+ipfilter_enable="YES"            
+ipfilter_rules="/etc/ipf.rules"  
+ipv6_ipfilter_rules="/etc/ipf6.rules" 
+ipmon_enable="YES"                
+ipmon_flags="-Ds"</code></pre>
+
+
+#### Remediation:
+Run the following commands to enable and start the PF firewall
+<pre><code># sysrc ipfilter_enable=YES           
+# sysrc ipfilter_rules=/etc/ipf.rules
+# sysrc ipv6_ipfilter_rules=/etc/ipf6.rules 
+# sysrc ipmon_enable=YES                
+# sysrc ipmon_flags=-Ds
+# service ipfilter start
+</code></pre>
+
+#### Impact:
+Changing firewall settings while connected over network can result in being locked out of
+the system.
+
+#### CIS Controls:
+Version 7
+
+9.4 Apply Host-based Firewalls or Port Filtering
+
+Apply host-based firewalls or port filtering tools on end systems, with a default-deny
+rule that drops all traffic except those services and ports that are explicitly allowed.
