@@ -270,4 +270,45 @@ connections, to stop intrusion and provide a strong method of access control pol
 this section is intended only to ensure the resulting firewall rules are in place, not how they
 are configured.
 
+# 3.4.1 Ensure Firewall software is configured.
 
+FreeBSD has three firewalls built into the base system: PF, IPFW, and IPFILTER, also known as IPF. FreeBSD also provides two traffic shapers for controlling bandwidth usage: altq(4) and dummynet(4). ALTQ has traditionally been closely tied with PF and dummynet with IPFW. Each firewall uses rules to control the access of packets to and from a FreeBSD system, although they go about it in different ways and each has a different rule syntax.
+
+FreeBSD provides multiple firewalls in order to meet the different requirements and preferences for a wide variety of users. Each user should evaluate which firewall best meets their needs.
+
+## 3.4.1.1 Ensure PF service is enabled and running
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Ensure that PF service is enabled to protect your system
+
+#### Rationale:
+PF (Packet Filter) tool provides a dynamically managed firewall. PF is a complete, full-featured firewall that has optional support for ALTQ (Alternate Queuing), which provides Quality of Service. To use PF, its kernel module must be first loaded.
+
+#### Audit:
+Run the following command to verify that firewalld is enabled:
+<pre><code># grep pf_enable /etc/rc.conf
+
+
+Run the following command to verify that firewalld is running
+# firewall-cmd --state
+running
+
+#### Remediation:
+Run the following command to enable and start firewalld
+# systemctl --now enable firewalld
+
+#### Impact:
+Changing firewall settings while connected over network can result in being locked out of
+the system.
+
+#### CIS Controls:
+Version 7
+
+9.4 Apply Host-based Firewalls or Port Filtering
+
+Apply host-based firewalls or port filtering tools on end systems, with a default-deny
+rule that drops all traffic except those services and ports that are explicitly allowed.
