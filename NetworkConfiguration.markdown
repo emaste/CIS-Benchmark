@@ -385,10 +385,8 @@ Ensure that PF service is enabled to protect your system
 
 #### Audit:
 Run the following command to verify that IPF and its dependencies are enabled:
-<pre><code># egrep "ipfilter_enable|ipfilter_rules|ipv6_ipfilter_rules|ipmon_enable|ipmon_flags" /etc/rc.conf
+<pre><code># egrep "ipfilter_enable||ipmon_enable|ipmon_flags" /etc/rc.conf
 ipfilter_enable="YES"            
-ipfilter_rules="/etc/ipf.rules"  
-ipv6_ipfilter_rules="/etc/ipf6.rules" 
 ipmon_enable="YES"                
 ipmon_flags="-Ds"</code></pre>
 
@@ -396,8 +394,6 @@ ipmon_flags="-Ds"</code></pre>
 #### Remediation:
 Run the following commands to enable and start the PF firewall
 <pre><code># sysrc ipfilter_enable=YES           
-# sysrc ipfilter_rules=/etc/ipf.rules
-# sysrc ipv6_ipfilter_rules=/etc/ipf6.rules 
 # sysrc ipmon_enable=YES                
 # sysrc ipmon_flags=-Ds
 # service ipfilter start
@@ -414,3 +410,4 @@ Version 7
 
 Apply host-based firewalls or port filtering tools on end systems, with a default-deny
 rule that drops all traffic except those services and ports that are explicitly allowed.
+
