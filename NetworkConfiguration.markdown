@@ -289,17 +289,20 @@ Ensure that PF service is enabled to protect your system
 PF (Packet Filter) tool provides a dynamically managed firewall. PF is a complete, full-featured firewall that has optional support for ALTQ (Alternate Queuing), which provides Quality of Service. To use PF, its kernel module must be first loaded.
 
 #### Audit:
-Run the following command to verify that firewalld is enabled:
-<pre><code># grep pf_enable /etc/rc.conf
+Run the following command to verify that PF and PFlog are enabled:
+<pre><code># egrep "pf_enable|pflog_enable" /etc/rc.conf
+pf_enable="YES"
+pflog_enable="YES"</code></pre>
 
-
-Run the following command to verify that firewalld is running
-# firewall-cmd --state
-running
 
 #### Remediation:
-Run the following command to enable and start firewalld
-# systemctl --now enable firewalld
+Run the following commands to enable and start the PF firewall
+<pre><code># sysrc pf_enable=yes
+# sysrc pflog_enable=yes
+# service pf start
+# service pflog start
+# pfctl -e
+</code></pre>
 
 #### Impact:
 Changing firewall settings while connected over network can result in being locked out of
@@ -312,3 +315,58 @@ Version 7
 
 Apply host-based firewalls or port filtering tools on end systems, with a default-deny
 rule that drops all traffic except those services and ports that are explicitly allowed.
+
+## 3.4.1.2 Ensure IPFW service is enabled and running
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Ensure that IPFW service is enabled to protect your system. A range of firewall types are available 
+The available types are:
+
+**open:** passes all traffic.
+
+**client:** protects only this machine.
+
+**simple:** protects the whole network.
+
+**closed:** entirely disables IP traffic except for the loopback interface.
+
+**workstation:** protects only this machine using stateful rules.
+
+**UNKNOWN:** disables the loading of firewall rules.
+
+**filename:** full path of the file containing the firewall ruleset.
+
+#### Rationale:
+IPFW is a stateful firewall written for FreeBSD which supports both IPv4 and IPv6. It is comprised of several components: the kernel firewall filter rule processor and its integrated packet accounting facility, the logging facility, NAT, the <code>dummynet(4)</code> traffic shaper, a forward facility, a bridge facility, and an ipstealth facility. To use IPFW, its kernel module must be first loaded.
+
+#### Audit:
+Run the following command to verify that IPFW is enabled and that a firewall type was been configured:
+<pre><code># egrep "firewall_enable|firewall_type" /etc/rc.conf
+firewall_enable="YES"
+firewall_type="[type]"</code></pre>
+
+
+#### Remediation:
+Run the following commands to enable and start the IPFW firewall, configure and set the firewall type. 
+<pre><code># sysrc firewall_enable="YES"
+# sysrc firewall_type="[type]"
+# service ipfw start
+# sysctl net.inet.ip.fw.verbose_limit=5
+</code></pre>
+
+#### Impact:
+Changing firewall settings while connected over network can result in being locked out of
+the system.
+
+#### CIS Controls:
+Version 7
+
+9.4 Apply Host-based Firewalls or Port Filtering
+
+Apply host-based firewalls or port filtering tools on end systems, with a default-deny
+rule that drops all traffic except those services and ports that are explicitly allowed.
+
