@@ -274,7 +274,7 @@ are configured.
 
 FreeBSD has three firewalls built into the base system: PF, IPFW, and IPFILTER, also known as IPF. FreeBSD also provides two traffic shapers for controlling bandwidth usage: altq(4) and dummynet(4). ALTQ has traditionally been closely tied with PF and dummynet with IPFW. Each firewall uses rules to control the access of packets to and from a FreeBSD system, although they go about it in different ways and each has a different rule syntax.
 
-FreeBSD provides multiple firewalls in order to meet the different requirements and preferences for a wide variety of users. Each user should evaluate which firewall best meets their needs.
+This benchmark will focus on using PF, IPFW is out of scope. 
 
 ## 3.4.1.1 Ensure PF service is enabled and running
 
@@ -302,101 +302,6 @@ Run the following commands to enable and start the PF firewall
 # service pf start
 # service pflog start
 # pfctl -e
-</code></pre>
-
-#### Impact:
-Changing firewall settings while connected over network can result in being locked out of
-the system.
-
-#### CIS Controls:
-Version 7
-
-9.4 Apply Host-based Firewalls or Port Filtering
-
-Apply host-based firewalls or port filtering tools on end systems, with a default-deny
-rule that drops all traffic except those services and ports that are explicitly allowed.
-
-## 3.4.1.2 Ensure IPFW service is enabled and running
-
-#### Profile Applicability:
-* Level 1 - Server
-* Level 1 - Workstation
-
-#### Description:
-Ensure that IPFW service is enabled to protect your system. A range of firewall types are available 
-The available types are:
-
-**open:** passes all traffic.
-
-**client:** protects only this machine.
-
-**simple:** protects the whole network.
-
-**closed:** entirely disables IP traffic except for the loopback interface.
-
-**workstation:** protects only this machine using stateful rules.
-
-**UNKNOWN:** disables the loading of firewall rules.
-
-**filename:** full path of the file containing the firewall ruleset.
-
-#### Rationale:
-IPFW is a stateful firewall written for FreeBSD which supports both IPv4 and IPv6. It is comprised of several components: the kernel firewall filter rule processor and its integrated packet accounting facility, the logging facility, NAT, the <code>dummynet(4)</code> traffic shaper, a forward facility, a bridge facility, and an ipstealth facility. To use IPFW, its kernel module must be first loaded.
-
-#### Audit:
-Run the following command to verify that IPFW is enabled and that a firewall type was been configured:
-<pre><code># egrep "firewall_enable|firewall_type" /etc/rc.conf
-firewall_enable="YES"
-firewall_type="[type]"</code></pre>
-
-
-#### Remediation:
-Run the following commands to enable and start the IPFW firewall, configure and set the firewall type. 
-<pre><code># sysrc firewall_enable="YES"
-# sysrc firewall_type="[type]"
-# service ipfw start
-# sysctl net.inet.ip.fw.verbose_limit=5
-</code></pre>
-
-#### Impact:
-Changing firewall settings while connected over network can result in being locked out of
-the system.
-
-#### CIS Controls:
-Version 7
-
-9.4 Apply Host-based Firewalls or Port Filtering
-
-Apply host-based firewalls or port filtering tools on end systems, with a default-deny
-rule that drops all traffic except those services and ports that are explicitly allowed.
-
-
-## 3.4.1.3 Ensure IPFILTER (IPF) service is enabled and running
-
-#### Profile Applicability:
-* Level 1 - Server
-* Level 1 - Workstation
-
-#### Description:
-Ensure that PF service is enabled to protect your system
-
-#### Rationale:
-<code>IPFILTER</code>, also known as IPF, is a cross-platform, open source firewall. <code>IPFILTER</code> is a kernel-side firewall and NAT mechanism that can be controlled and monitored by userland programs.
-
-#### Audit:
-Run the following command to verify that IPF and its dependencies are enabled:
-<pre><code># egrep "ipfilter_enable||ipmon_enable|ipmon_flags" /etc/rc.conf
-ipfilter_enable="YES"            
-ipmon_enable="YES"                
-ipmon_flags="-Ds"</code></pre>
-
-
-#### Remediation:
-Run the following commands to enable and start the PF firewall
-<pre><code># sysrc ipfilter_enable=YES           
-# sysrc ipmon_enable=YES                
-# sysrc ipmon_flags=-Ds
-# service ipfilter start
 </code></pre>
 
 #### Impact:
