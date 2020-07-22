@@ -7,9 +7,10 @@ Services:
 Network Configuration:
 (3.1.2) packet redirect sending - Is this possible on FreeBSD?
 (3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?
-(3.2.6) Ensure bogus ICMP responses are ignored - No option on FreeBSD
-(3.2.7) Ensure Reverse Path Filtering is enabled - No option on freebsd
+(3.2.6) Ensure bogus ICMP responses are ignored - NA for FreeBSD
+(3.2.7) Ensure Reverse Path Filtering is enabled - NA for freebsd
 (3.3.1) Ensure DCCP is disabled - Looks like DCCP isn't available on FreeBSD?
+(3.4.1.2) 3.4.2.2 Ensure iptables is not enabled - NA for FREEBSD
 
 
 Auditing and Logging.
@@ -32,14 +33,8 @@ Ensure all users last password change date is in the past - No option on FreeBSD
 Ensure system accounts are secured - No(?) direct translation to FreeBSD
 
 PAM and Password Settings
-(5.2.2)Ensure lockout for failed password attempts is configured - Not an option on FreeBSD
-(5.2.3)Ensure password reuse is limited - No option on FreeBSD
+(5.2.2)Ensure lockout for failed password attempts is configured - NA for FreeBSD
+(5.2.3)Ensure password reuse is limited - NA for FreeBSD
 
 FileSystem
 6.1.5 Check if the find command is doable (personal note)
-
-User and Group Settings
-6.2.3 Need to test bash script
-6.2.7 "     "
-6.2.8 "     "
-6.2.9 "     "
