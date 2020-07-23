@@ -316,3 +316,51 @@ Version 7
 Apply host-based firewalls or port filtering tools on end systems, with a default-deny
 rule that drops all traffic except those services and ports that are explicitly allowed.
 
+## 3.4.1.2 Create a PF Ruleset
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+PF will not start if it cannot find its ruleset configuration file. By default, FreeBSD does not ship with a ruleset and there is no <code>/etc/pf.conf</code> Example rulesets can be found in <code>/usr/share/examples/pf/</code>. The configuration file will need to be created and configured.
+
+#### Rationale:
+PF requires a ruleset configuration file in order to run, rules are evaluated from top to bottom, in the sequence they are written.
+
+
+#### Audit:
+Run the following command and verify that the ruleset adheres to company policy:
+<pre><code># pfctl -s [ rules | nat | states ]</code></pre>
+
+#### Remediation:
+Create and edit <code>/etc/pf.conf</code> to adhere to company policy
+<pre><code># touch /etc/pf.conf</code></pre>
+
+#### Example:
+The simplest possible ruleset is for a single machine that does not run any services and which needs access to one network, which may be the Internet. To create this minimal ruleset, edit <code>/etc/pf.conf</code> so it looks like this:
+<pre><code>block in all
+pass out all keep state</code></pre>
+
+In this more complicated example, all traffic is blocked except for the connections initiated by this system for the seven specified TCP services and the one specified UDP service:
+<pre><code>tcp_services = "{ ssh, smtp, domain, www, pop3, auth, pop3s }"
+udp_services = "{ domain }"
+block all
+pass out proto tcp to any port $tcp_services keep state
+pass proto udp to any port $udp_services keep state</code></pre>
+
+Run the following command after every time <code>/etc/pf.conf</code> is edited to load the new ruleset:
+<pre><code># pfctl -f /etc/pf.conf</code></pre>
+
+
+#### References:
+1. https://www.freebsd.org/doc/handbook/firewalls-pf.html
+
+#### CIS Controls:
+
+Version 7
+
+9.4 Apply Host-based Firewalls or Port Filtering
+
+Apply host-based firewalls or port filtering tools on end systems, with a default-deny
+rule that drops all traffic except those services and ports that are explicitly allowed.
