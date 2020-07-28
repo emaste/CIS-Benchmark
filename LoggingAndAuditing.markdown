@@ -315,3 +315,132 @@ Version 7
 Utilize a Security Content Automation Protocol (SCAP) compliant configuration
 monitoring system to verify all security configuration elements, catalog approved
 exceptions, and alert when unauthorized changes occur.
+
+## 4.1.6 Ensure unsuccessful unauthorized file access attempts are collected
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Monitor for unsuccessful attempts to access files. An audit log record will only be written if the user is a nonprivileged user or if it is not a Daemon event.
+
+#### Rationale:
+Failed attempts to open or create files could be an indication that an individual or
+process is trying to gain unauthorized access to the system.
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:-fw,-fc</code></pre>
+Other policy flags may be in use, ensure that <code>-fw,-fc</code> are included.
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:-fw,-fc</code></pre>
+
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+
+Version 7
+
+14.9 Enforce Detail Logging for Access or Changes to Sensitive Data
+
+Enforce detailed audit logging for access to sensitive data or changes to sensitive data
+(utilizing tools such as File Integrity Monitoring or Security Information and Event
+Monitoring).
+
+## 4.1.7 Ensure file deletion events by users are collected
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Monitor the use of system calls associated with the deletion of files and file
+attributes. 
+
+#### Rationale:
+Monitoring these calls from non-privileged users could provide a system administrator
+with evidence that inappropriate removal of files and file attributes associated with
+protected files is occurring. While this audit option will look at all events, system
+administrators will want to look for specific privileged files that are being deleted or
+altered.
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:fd</code></pre>
+Other policy flags may be in use, ensure that <code>fd</code> is included.
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:fd</code></pre>
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+Version 7
+
+4.8 Log and Alert on Changes to Administrative Group Membership
+
+Configure systems to issue a log entry and alert when an account is added to or removed
+from any group assigned administrative privilege
+
+## 4.1.8 Ensure system administrator actions are collected 
+
+#### Profile Applicability:
+
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Monitor the sudo log file. If the system has been properly configured to disable the use of
+the su command and force all administrators to have to log in first and then use sudo to
+execute privileged commands, then all administrator commands will be logged. Any time a command is executed, an audit event will be triggered.
+
+
+#### Rationale:
+Changes in the log indicate that an administrator has executed a command or
+the log file itself has been tampered with. This allows administrators to verify if
+unauthorized commands have been executed.
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:ad</code></pre>
+Other policy flags may be in use, ensure that <code>ad</code> is included.
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:ad</code></pre>
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+
+Version 7
+
+4.9 Log and Alert on Unsuccessful Administrative Account Login
+Configure systems to issue a log entry and alert on unsuccessful logins to an
+administrative account.
+
+## 4.2 Configure Logging
+
+Logging services should be configured to prevent information leaks and to aggregate logs
+on a remote server so that they can be reviewed in the event of a system compromise and
+ease log analysis.
+
+## 4.2.1 Configure syslog
+
+Generating and reading system logs is an important aspect of system administration. The information in system logs can be used to detect hardware and software issues as well as application and system configuration errors. This information also plays an important role in security auditing and incident response. Most system daemons and applications will generate log entries.
+
+FreeBSD provides a system logger, <code>syslogd</code>, to manage logging. By default, <code>syslogd</code> is started when the system boots. This is controlled by the variable <code>syslogd_enable</code> in <code>/etc/rc.conf</code>. There are numerous application arguments that can be set using <code>syslogd_flags</code> in <code>/etc/rc.conf</code>. 
+
+## 4.2.1.1 Ensure rsyslog Service is enabled
+
