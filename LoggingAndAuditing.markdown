@@ -442,5 +442,45 @@ Generating and reading system logs is an important aspect of system administrati
 
 FreeBSD provides a system logger, <code>syslogd</code>, to manage logging. By default, <code>syslogd</code> is started when the system boots. This is controlled by the variable <code>syslogd_enable</code> in <code>/etc/rc.conf</code>. There are numerous application arguments that can be set using <code>syslogd_flags</code> in <code>/etc/rc.conf</code>. 
 
-## 4.2.1.1 Ensure rsyslog Service is enabled
+## 4.2.1.1 Ensure syslog Service is enabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+By default <code>syslog</code> is started when the system boots, ensure that this is the case.
+
+#### Rationale:
+If the syslog service is not activated the system may lack
+logging.
+
+#### Audit:
+Run the following command to verify syslog is enabled on boot:
+<pre><code># grep syslogd_enable /etc/rc.conf
+syslogd_enable="YES"</code></pre>
+
+Verify result is "YES".
+
+#### Remediation:
+Edit <code>/etc/rc.conf</code> and add the following line:
+<pre><code>syslogd_enable="YES"</code></pre>
+
+#### Notes:
+Additional methods of enabling a service exist. Consult your distribution documentation for
+appropriate methods.
+
+#### CIS Controls:
+Version 7
+
+6.2 Activate audit logging
+
+Ensure that local logging has been enabled on all systems and networking devices.
+
+6.3 Enable Detailed Logging
+
+Enable system logging to include detailed information such as an event source, date,
+user, timestamp, source addresses, destination addresses, and other useful elements.
+
+## 4.2.1.2 Ensure syslog default file permissions are configured
 
