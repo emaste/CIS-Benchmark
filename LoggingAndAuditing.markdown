@@ -1,9 +1,29 @@
 # 4 Logging and Auditing
 
 The items in this section describe how to configure logging, log monitoring, and auditing,
-using tools included in most distributions
+using tools included in most distributions. In addition to the local log files created by the steps in this section, it is also recommended
+that sites collect copies of their system logs on a secure, centralized log server via an
+encrypted connection. Not only does centralized logging help sites correlate events that
+may be occurring on multiple systems, but having a second copy of the system log
+information may be critical after a system compromise where the attacker has modified the
+local log files on the affected system(s). If a log correlation system is deployed, configure it
+to process the logs described in this section.
 
-### ADD MORE TO THIS SECTION ###
+It is important that all logs described in this section be monitored on a regular basis and
+correlated to determine trends. A seemingly innocuous entry in one log could be more
+significant when compared to an entry in another log.
+
+**Note on log file permissions:** There really isn't a "one size fits all" solution to the
+permissions on log files. Many sites utilize group permissions so that administrators who
+are in a defined security group, such as "wheel" do not have to elevate privileges to root in
+order to read log files. Also, if a third party log aggregation tool is used, it may need to have
+group permissions to read the log files, which is preferable to having it run setuid to root.
+Therefore, there are two remediation and audit steps for log file permissions. One is for
+systems that do not have a secured group method implemented that only permits root to
+read the log files (<code>root:operator 600</code>). The other is for sites that do have such a setup and are
+designated as <code>root:securegrp 640</code> where securegrp is the defined security group (in some
+cases wheel).
+
 
 
 ## 4.1.1 Ensure auditing is enabled
@@ -220,3 +240,78 @@ administrative account.
 16.13 Alert on Account Login Behavior Deviation
 Alert when users deviate from normal login behavior, such as time-of-day, workstation
 location and duration.
+
+## 4.1.4 Ensure events that modify the system's network environment are collected
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Record changes to network environment files or system calls. The below parameters
+monitor Audit events related to network actions such as <code>connect(2)</code> and <code>accept(2)</code>.
+
+#### Rationale:
+Monitoring <code>connect(2)</code> and <code>accept(2)</code> will identify potential unauthorized changes
+to host and domainname of a system. The changing could potentially break
+security parameters that are set based on those actions. 
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:nt</code></pre>
+Other policy flags may be in use, ensure that <code>nt</code> is included.
+
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:nt</code></pre>
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+Version 7
+
+5.5 Implement Automated Configuration Monitoring Systems
+
+Utilize a Security Content Automation Protocol (SCAP) compliant configuration
+monitoring system to verify all security configuration elements, catalog approved
+exceptions, and alert when unauthorized changes occur.
+
+##  4.1.5 Ensure discretionary access control permission modification events are collected
+
+#### Profile Applicability:
+* Level 2 - Server
+* Level 2 - Workstation
+
+#### Description:
+Audit events where file attribute modification occurs, such as by <code>chown(8)</code>, <code>chflags(1)</code>, and <code>flock(2)</code>. This will monitor changes to file permissions, attributes, ownership and group. The parameters in this section track changes for system calls that affect file permissions and attributes. 
+
+#### Rationale:
+Monitoring for changes in file attributes could alert a system administrator to activity that
+could indicate intruder activity or policy violation.
+
+#### Audit:
+Run the following command and verify output matches:
+<pre><code># grep flags: /etc/security/audit_control
+flags:fm</code></pre>
+Other policy flags may be in use, ensure that <code>fm</code> is included.
+
+#### Remediation:
+Set the following parameters in <code>/etc/audit/auditd_control</code>:
+<pre><code>policy:fm</code></pre>
+
+
+#### Notes:
+Reloading the auditd config to set active settings may require a system reboot.
+
+#### CIS Controls:
+
+Version 7
+
+5.5 Implement Automated Configuration Monitoring Systems
+
+Utilize a Security Content Automation Protocol (SCAP) compliant configuration
+monitoring system to verify all security configuration elements, catalog approved
+exceptions, and alert when unauthorized changes occur.
