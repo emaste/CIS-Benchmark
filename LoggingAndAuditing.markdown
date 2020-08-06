@@ -436,7 +436,7 @@ Logging services should be configured to prevent information leaks and to aggreg
 on a remote server so that they can be reviewed in the event of a system compromise and
 ease log analysis.
 
-## 4.2.1 Configure syslog
+## 4.2.1 Configure rsyslog
 
 Generating and reading system logs is an important aspect of system administration. The information in system logs can be used to detect hardware and software issues as well as application and system configuration errors. This information also plays an important role in security auditing and incident response. Most system daemons and applications will generate log entries.
 
@@ -482,5 +482,39 @@ Ensure that local logging has been enabled on all systems and networking devices
 Enable system logging to include detailed information such as an event source, date,
 user, timestamp, source addresses, destination addresses, and other useful elements.
 
-## 4.2.1.2 Ensure rsyslog default file permissions are configured
+## 4.2.1.2 Ensure syslog default file permissions are configured
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+syslog will create logfiles that do not already exist on the system. This setting controls
+what permissions will be applied to these newly created files.
+
+#### Rationale:
+It is important to ensure that log files have the correct permissions to ensure that sensitive
+data is archived and protected.
+
+#### Audit:
+Run the following command to view a list of all log files, ensure they all are set to 640 or more restrictive.:
+# cat /etc/syslog.conf
+
+#### Remediation:
+Edit the <code>/etc/syslog.conf</code> <code>0640</code> or more restrictive:
+
+#### References:
+1. See the <code>syslog.conf(5)</code> man page for more information.
+
+#### Notes:
+You should also ensure this is not overridden with less restrictive settings in any
+<code>/etc/rsyslog.d/*</code> conf file.
+
+#### CIS Controls:
+
+Version 7
+
+5.1 Establish Secure Configurations
+
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
