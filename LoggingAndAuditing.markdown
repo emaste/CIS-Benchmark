@@ -482,5 +482,5 @@ Ensure that local logging has been enabled on all systems and networking devices
 Enable system logging to include detailed information such as an event source, date,
 user, timestamp, source addresses, destination addresses, and other useful elements.
 
-## 4.2.1.2 Ensure syslog default file permissions are configured
+## 4.2.1.2 Ensure rsyslog default file permissions are configured
 
