@@ -15,6 +15,7 @@ Network Configuration:
 
 Auditing and Logging.
 4.1.1.1  Ensure auditd is installed - Is there a way to check if auditd is installed? I know it's normally packages with the base OS
+4.2.2 Configure Journald - Systemd-journald looks to be Linux only so I skipped this section
 
 (4.1.1.3)  Ensure auditing for processes that start prior to auditd is enabled - Not possible in FreeBSD
 (4.1.1.3)  Ensure audit_backlog_limit is sufficient - Not possible in FreeBSD
