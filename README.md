@@ -1,12 +1,12 @@
 # CIS-Benchmark
 
-Initial Setup
+Initial Setup 
 
 Services (x)
 
-Network Configuration
+Network Configuration (x)
 
-Logging and Auditing
+Logging and Auditing (x)
 
 Cron & Perodic (x)
 
@@ -18,4 +18,4 @@ User accounts & environment (x)
 
 Filesystem Permissions (x)
 
-User and Group Settings
+User and Group Settings 
