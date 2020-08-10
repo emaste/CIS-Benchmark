@@ -56,13 +56,13 @@ run on the system and could provide them a way to gain unauthorized privileged a
 
 #### Audit:
 Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root
-and operator:
+and wheel:
 <pre><code># ls -l /etc/crontab
--rw------- 1 root operator [date and time] /etc/crontab</code></pre>
+-rw------- 1 root wheel [date and time] /etc/crontab</code></pre>
 
 #### Remediation:
 Run the following commands to set ownership and permissions on <code>/etc/crontab</code> :
-<pre><code># chown root:operator /etc/crontab
+<pre><code># chown root:wheel /etc/crontab
 # chmod 600 /etc/crontab</code></pre>
 
 #### CIS Controls:
@@ -91,13 +91,13 @@ auditing controls.
 
 #### Audit:
 Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root
-and operator:
+and wheel:
 <pre><code># ls -l /etc/cron.d
--rw------- 1 root operator [date and time] /etc/cron.d</code></pre>
+-rw------- 1 root wheel [date and time] /etc/cron.d</code></pre>
 
 #### Remediation:
 Run the following commands to set ownership and permissions on <code>/etc/crontab</code> :
-<pre><code># chown root:operator /etc/crontab
+<pre><code># chown root:wheel /etc/crontab
 # chmod 600 /etc/cron.d</code></pre>
 
 #### CIS Controls:
@@ -136,14 +136,14 @@ stat: /etc/cron.d/cron.deny: stat: No such file or directory</code></pre>
 <pre><code># stat /var/at/at.deny
 stat: /var/at/at.deny: stat: No such file or directory</code></pre>
 
-Run the following command and verify Uid and Gid are both root and operator and Access does not
+Run the following command and verify Uid and Gid are both root and wheel and Access does not
 grant permissions to group or other for both <code>/etc/cron.d/cron.allow</code> and <code>/var/at/at.allow</code> :
 
 <pre><code># ls -l /etc/cron.d/cron.allow
--rw------- 1 root operator [date and time] /etc/cron.d/cron.allow</code></pre>
+-rw------- 1 root wheel [date and time] /etc/cron.d/cron.allow</code></pre>
 
 <pre><code># ls -l /var/at/at.allow
--rw------- 1 root operator [date and time] /etc/at/at.allow</code></pre>
+-rw------- 1 root wheel [date and time] /etc/at/at.allow</code></pre>
 
 #### Remediation:
 Run the following commands to remove <code>/etc/cron.d/cron.deny</code> and <code>/var/at/at.deny</code> and create and
@@ -157,8 +157,8 @@ set permissions and ownership for <code>/etc/cron.d/cron.allow</code> and <code>
 <pre><code># chmod 600 /etc/cron.d/cron.allow
 # chmod 600 /var/at/at.allow</code></pre>
 
-<pre><code># chown root:operator /etc/cron.d/cron.allow
-# chown root:operator /var/at/at.allow</code></pre>
+<pre><code># chown root:wheel /etc/cron.d/cron.allow
+# chown root:wheel /var/at/at.allow</code></pre>
 
 #### CIS Controls:
 
