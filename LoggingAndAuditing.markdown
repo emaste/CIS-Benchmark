@@ -635,3 +635,63 @@ correlation and analysis.
 
 On a regular basis, tune your SIEM system to better identify actionable events and
 decrease event noise.
+
+## 4.2.1.5 Ensure remote syslog messages are accepted on designated log hosts
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+By default, syslog does not listen for log messages coming in from remote systems. The remote hosts will have to be configured to accept logging information from other hosts.
+
+#### Rationale:
+The guidance in the section ensures that remote log hosts are configured to accept
+syslog data from hosts within the specified domain and that those systems that are not
+designed to be log hosts do not accept any remote syslog messages. This provides
+protection from spoofed log data and ensures that system administrators are reviewing
+reasonably complete syslog data in a central location.
+
+#### Audit:
+Run the following commands and verify the resulting lines on the designated log server (where logclient.example.com is the name of your remote system):
+
+<pre><code># grep syslogd /etc/rc.conf
+syslogd_enable="YES"
+syslogd_flags="-a logclient.example.com -v -v"</code></pre>
+
+<pre><code># grep +logclient /etc/syslog.conf
++logclient.example.com
+*.*               /var/log/logclient.log</code></pre>
+
+
+
+#### Remediation:
+Edit the <code>/etc/rc.conf</code> and add the following lines (where logclient.example.com is the name of your remote system):
+
+<pre><code>syslogd_enable="YES"
+syslogd_flags="-a logclient.example.com -v -v"</code></pre>
+
+Then edit <code>/etc/syslog.conf</code> and add the following lines:
+<pre><code>+logclient.example.com
+*.*               /var/log/logclient.log</code></pre>
+
+Next, create the log file:
+
+<pre><code>touch /var/log/logclient.log</code></pre>
+
+Finally, syslogd should be restarted and verified:
+
+#### References:
+1. See the syslog(5) man page for more information.
+
+#### Notes:
+The $ModLoad imtcp line can have the .so extension added to the end of the module, or use
+the full path to the module.
+
+#### CIS Controls:
+Version 7
+
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
