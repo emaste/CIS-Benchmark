@@ -498,7 +498,7 @@ data is archived and protected.
 
 #### Audit:
 Run the following command to view a list of all log files, ensure they all are set to 640 or more restrictive.:
-# cat /etc/syslog.conf
+<pre># cat /etc/syslog.conf
 
 #### Remediation:
 Edit the <code>/etc/syslog.conf</code> <code>0640</code> or more restrictive:
@@ -508,7 +508,7 @@ Edit the <code>/etc/syslog.conf</code> <code>0640</code> or more restrictive:
 
 #### Notes:
 You should also ensure this is not overridden with less restrictive settings in any
-<code>/etc/rsyslog.d/*</code> conf file.
+<code>/etc/syslog.d/*</code> conf file.
 
 #### CIS Controls:
 
@@ -518,3 +518,60 @@ Version 7
 
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
+
+## 4.2.1.3 Ensure logging is configured
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The /etc/rsyslog.conf and /etc/rsyslog.d/*.conf files specifies rules for logging and
+which files are to be used to log certain classes of messages.
+
+#### Rationale:
+A great deal of important security-related information is sent via rsyslog (e.g., successful
+and failed su attempts, failed login attempts, root login attempts, etc.).
+
+#### Audit:
+Review the contents of the /etc/rsyslog.conf and /etc/rsyslog.d/*.conf files to ensure
+appropriate logging is set. In addition, run the following command and verify that the log
+files are logging information:
+# ls -l /var/log/
+
+#### Remediation:
+Edit the following lines in the /etc/rsyslog.conf and /etc/rsyslog.d/*.conf files as
+appropriate for your environment:
+*.emerg :omusrmsg:*
+auth,authpriv.* /var/log/secure
+mail.* -/var/log/mail
+mail.info -/var/log/mail.info
+mail.warning -/var/log/mail.warn
+mail.err /var/log/mail.err
+news.crit -/var/log/news/news.crit
+news.err -/var/log/news/news.err
+news.notice -/var/log/news/news.notice
+*.=warning;*.=err -/var/log/warn
+*.crit /var/log/warn
+*.*;mail.none;news.none -/var/log/messages
+local0,local1.* -/var/log/localmessages
+local2,local3.* -/var/log/localmessages
+local4,local5.* -/var/log/localmessages
+local6,local7.* -/var/log/localmessages
+Run the following command to reload the rsyslogd configuration:
+# systemctl restart rsyslog
+
+#### References:
+1. See the rsyslog.conf(5) man page for more information.
+
+#### CIS Controls:
+Version 7
+
+
+6.2 Activate audit logging
+Ensure that local logging has been enabled on all systems and networking devices.
+
+6.3 Enable Detailed Logging
+
+Enable system logging to include detailed information such as an event source, date,
+user, timestamp, source addresses, destination addresses, and other useful elements.
