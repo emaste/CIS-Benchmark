@@ -14,16 +14,16 @@ command below sets the owner and group of the file to root.
 The <code>/etc/ssh/sshd_config</code> file needs to be protected from unauthorized changes by nonprivileged users.
 
 #### Audit:
-Run the following command and verify Uid and Gid are root abd operator and Access does not
+Run the following command and verify Uid and Gid are root and wheel and Access does not
 grant permissions to group or other:
 
 <pre><code># ls -l /etc/ssh/sshd_config
--rw------- 1 root operator [date and time] /etc/ssh/sshd_config</code></pre>
+-rw------- 1 root wheel [date and time] /etc/ssh/sshd_config</code></pre>
 
 
 #### Remediation:
 Run the following commands to set ownership and permissions on /etc/ssh/sshd_config:
-<pre><code># chown root:operator /etc/ssh/sshd_config</code></pre>
+<pre><code># chown root:wheel /etc/ssh/sshd_config</code></pre>
 <pre><code># chmod 600 /etc/ssh/sshd_config</code></pre>
 
 #### CIS Controls:
@@ -139,7 +139,7 @@ impersonated
 
 
 #### Audit:
-Run the following command and verify the owner and group ID are set to root and operator. The permissions should also be restricted to owner read/write only. 
+Run the following command and verify the owner and group ID are set to root and wheel. The permissions should also be restricted to owner read/write only. 
 
 <pre><code># ls -l ~/.ssh/id_rsa
 -rw------- 1 root wheel [date and time] /root/.ssh/id_rsa
@@ -148,7 +148,7 @@ Run the following command and verify the owner and group ID are set to root and 
 #### Remediation:
 Run the following commands to set ownership and permissions on the private SSH host key
 files.
-<pre><code># chown root:operator ~/.ssh/id_rsa
+<pre><code># chown root:wheel ~/.ssh/id_rsa
 # chmod 600 ~/.ssh/id_rsa</code></pre>
 
 #### CIS Controls:
@@ -174,7 +174,7 @@ If a public host key file is modified by an unauthorized user, the SSH service m
 compromised.
 
 #### Audit:
-Run the following command and verify the owner and group ID are set to root and operator. The permissions should also grant everyone read access, but only the owner should have write permissions
+Run the following command and verify the owner and group ID are set to root and wheel. The permissions should also grant everyone read access, but only the owner should have write permissions
 
 <pre><code># ls -l ~/.ssh/id_rsa.pub
 -rw-r--r-- 1 root wheel [date and time] /root/.ssh/id_rsa.pub</code></pre>
@@ -183,7 +183,7 @@ Run the following command and verify the owner and group ID are set to root and 
 Run the following commands to set permissions and ownership on the SSH host public key
 files
 
-<pre><code># chown root:operator ~/.ssh/id_rsa.pub
+<pre><code># chown root:wheel ~/.ssh/id_rsa.pub
 # chmod 644 ~/.ssh/id_rsa.pub</code></pre>
 
 #### CIS Controls:
