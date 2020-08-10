@@ -566,6 +566,8 @@ cron.*                                          /var/log/cron
 !ppp
 *.*                                             /var/log/ppp.log
 !*</code></pre>
+Run the following command to reload the syslogd configuration:
+<pre><code># service syslogd restart</code></pre>
 
 #### References:
 1. See the syslog.conf(5) man page for more information.
@@ -581,3 +583,55 @@ Ensure that local logging has been enabled on all systems and networking devices
 
 Enable system logging to include detailed information such as an event source, date,
 user, timestamp, source addresses, destination addresses, and other useful elements.
+
+## 4.2.1.4 Ensure rsyslog is configured to send logs to a remote log host
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+The <code>syslog</code> utility supports the ability to send logs it gathers to a remote log host running
+<code>syslogd</code> or to receive messages from remote hosts, reducing administrative overhead.
+
+#### Rationale:
+Storing log data on a remote host protects log integrity from local attacks. If an attacker
+gains root access on the local system, they could tamper with or remove log data that is
+stored on the local system
+
+#### Audit:
+Review the <code>/etc/rc.conf</code> and verify that logs are
+sent to a central host (where logserv.example.com is the name of your central log host):
+<pre><code># grep syslogd /etc/rc.conf
+syslogd_enable="YES"
+syslogd_flags="-s -v -v"</code></pre>
+
+<pre><code># grep "." /etc/syslog.conf
+*.*		@logserv.example.com</code></pre>
+
+#### Remediation:
+Edit the <code>/etc/rc.conf</code> and add the following lines
+<pre><code>syslogd_enable="YES"
+syslogd_flags="-s -v -v"</code></pre>
+
+Then edit <code>/etc/syslog.conf</code> and add the following line (where logserv.example.com is the name of your central log host):
+<pre><code>*.*		          @logserv.example.com</code></pre>
+
+Run the following command to reload the rsyslogd configuration:
+<pre><code># service syslogd restart</code></pre>
+
+#### References:
+1. See the syslog.conf(5) man page for more information.
+
+#### CIS Controls:
+Version 7
+
+6.6 Deploy SIEM or Log Analytic tool
+
+Deploy Security Information and Event Management (SIEM) or log analytic tool for log
+correlation and analysis.
+
+6.8 Regularly Tune SIEM
+
+On a regular basis, tune your SIEM system to better identify actionable events and
+decrease event noise.
