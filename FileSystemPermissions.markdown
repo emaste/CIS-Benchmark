@@ -59,13 +59,13 @@ access. Although it is protected by default, the file permissions could be chang
 inadvertently or through malicious actions.
 
 #### Audit:
-Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and operator:
+Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and wheel:
 <pre><code># ls -l /etc/passwd
--rw-r--r-- 1 root operator [date and time] /etc/passwd</code></pre>
+-rw-r--r-- 1 root wheel [date and time] /etc/passwd</code></pre>
 
 #### Remediation:
 Run the following command to set permissions on /etc/passwd :
-<pre><code># chown root:operator /etc/passwd
+<pre><code># chown root:wheel /etc/passwd
 # chmod 644 /etc/passwd</code></pre>
 
 #### CIS Controls:
@@ -90,15 +90,15 @@ is stored in the <code>/etc/master.passwd</code> file (such as expiration) could
 user accounts.
 
 #### Audit:
-Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and operator:
+Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and wheel:
 
 <pre><code># ls -l /etc/master.passwd
--rw-r----- root operator [date and time] /etc/master.passwd</code></pre>
+-rw-r----- root wheel [date and time] /etc/master.passwd</code></pre>
 
 #### Remediation:
 Run the one of the following chown commands as appropriate and the chmod to set
 permissions on /etc/shadow :
-<pre><code># chown root:operator /etc/master.passwd
+<pre><code># chown root:wheel /etc/master.passwd
 # chmod 640 /etc/master.passwd</code></pre>
 
 #### CIS Controls:
@@ -121,13 +121,13 @@ The <code>/etc/group</code> file needs to be protected from unauthorized changes
 users, but needs to be readable as this information is used with many non-privileged programs.
 
 #### Audit:
-Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and operator:
+Run the following command and verify the the read/write permissions are correct, and the owner and owner group are set to root and wheel:
 <pre><code># ls -l /etc/group
--rw-r--r-- 1 root operator [date and time] /etc/group</code></pre>
+-rw-r--r-- 1 root wheel [date and time] /etc/group</code></pre>
 
 #### Remediation:
 Run the following command to set permissions on <code>/etc/group</code> :
-<pre><code># chown root:operator /etc/group
+<pre><code># chown root:wheel /etc/group
 # chmod 644 /etc/group</code></pre>
 
 #### CIS Controls:
