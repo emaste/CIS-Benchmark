@@ -20,7 +20,7 @@ order to read log files. Also, if a third party log aggregation tool is used, it
 group permissions to read the log files, which is preferable to having it run setuid to root.
 Therefore, there are two remediation and audit steps for log file permissions. One is for
 systems that do not have a secured group method implemented that only permits root to
-read the log files (<code>root:operator 600</code>). The other is for sites that do have such a setup and are
+read the log files (<code>root:wheel 600</code>). The other is for sites that do have such a setup and are
 designated as <code>root:securegrp 640</code> where securegrp is the defined security group (in some
 cases wheel).
 
