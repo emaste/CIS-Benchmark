@@ -1,11 +1,13 @@
-#### Issues:
+## Issues:
 
-#### Services:
+## Services:
+
 2.2.1.1 - Is Chrony setup needed? I included a ntpd setup, should I also have a section for installing/configuring chrony?
 
 2.2.2 - SMTP - should smtp be disabled? or set to send-only?
 
-#### Network Configuration:
+## Network Configuration:
+
 (3.1.2) packet redirect sending - Is this possible on FreeBSD?
 
 **(3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?**
@@ -19,7 +21,8 @@
 (3.4.1.2) 3.4.2.2 Ensure iptables is not enabled - NA for FREEBSD
 
 
-#### Auditing and Logging.
+## Auditing and Logging.
+
 **4.1.1.1  Ensure auditd is installed - Is there a way to check if auditd is installed? I know it's normally packages with the base OS**
 
 (4.1.1.3)  Ensure auditing for processes that start prior to auditd is enabled - Not possible in FreeBSD
@@ -47,13 +50,15 @@
 4.2.2 Configure Journald - Systemd-journald looks to be Linux only so I skipped this section
 
 
-#### Cron/Perodic:
+## Cron/Perodic:
+
 **5.1.4 - Secure at/cron/periodic to authorized users - Does periodic have allow/deny files? Couldn't locate them.**
 
-#### SSH
-**5.2.20 Incorrect way of changing the variable -NEEDS FIXING (personal note)**
+## SSH
+5.2.20 Ensure system-wide crypto policy is not over-ridden - N/A for FreeBSD
 
-#### User Accounts & Environment
+## User Accounts & Environment
+
 (5.5.1.2) Ensure minimum days between password changes is 7 or more - No option for this in FreeBSD
 
 5.5.1.2 - No option to switch warning for individual users
@@ -64,11 +69,12 @@ Ensure all users last password change date is in the past - No option on FreeBSD
 
 Ensure system accounts are secured - No(?) direct translation to FreeBSD
 
-#### PAM and Password Settings
+## PAM and Password Settings
+
 (5.2.2)Ensure lockout for failed password attempts is configured - NA for FreeBSD
 
 (5.2.3)Ensure password reuse is limited - NA for FreeBSD
 
-#### FileSystem
+## FileSystem
 
 **6.1.5 Check if the find command is doable (personal note)**
