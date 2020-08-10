@@ -743,32 +743,3 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
 
-## 5.2.20 Ensure system-wide crypto policy is not over-ridden
-
-#### Profile Applicability:
-* Level 1 - Server
-* Level 1 - Workstation
-
-#### Description:
-System-wide Crypto policy can be over-ridden or opted out of for openSSH
-
-#### Rationale:
-Over-riding or opting out of the system-wide crypto policy could allow for the use of less
-secure Ciphers, MACs, KexAlgoritms and GSSAPIKexAlgorithsm
-
-#### Audit:
-Run the following command:
-<pre><code># grep '^/s*CRYPTO_POLICY=' /etc/sysconfig/sshd'</code></pre>
-
-No output should be returned
-
-#### Remediation:
-Run the following commands:
-<pre><code># sed -ri "s/^\s*(CRYPTO_POLICY\s*=.*)$/# \1/" /etc/sysconfig/sshd
-# systemctl reload sshd</code></pre>
-
-#### CIS Controls:
-Version 7
-
-14.4 Encrypt All Sensitive Information in Transit
-Encrypt all sensitive information in transit.
