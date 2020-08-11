@@ -337,6 +337,42 @@ application, or database specific access control lists. These controls will enfo
 principle that only authorized individuals should have access to the information based on
 their need to access the information as a part of their responsibilities.
 
+## 6.2.14 Ensure all groups in /etc/passwd exist in /etc/group
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Over time, system administration errors and changes can lead to groups being defined in
+<code>/etc/passwd</code> but not in <code>/etc/group</code>.
+
+#### Rationale:
+Groups defined in the <code>/etc/passwd</code> file but not in the <code>/etc/group</code> file pose a threat to
+system security since group permissions are not properly managed.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+    for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
+    grep -q -P "^.*?:[^:]*:$i:" /etc/group
+    if [ $? -ne 0 ]; then
+        echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
+    fi
+done</code></pre>
+
+#### Remediation:
+Analyze the output of the Audit step above and perform the appropriate action to correct
+any discrepancies found.
+
+#### CIS Controls:
+Version 7
+
+16 Account Monitoring and Control
+
+Account Monitoring and Control
+
+
 ## 6.2.15 Ensure no duplicate UIDs exist
 
 #### Profile Applicability:
