@@ -389,10 +389,10 @@ Effectively, the UID is shared, which is a security problem.
 
 #### Audit:
 Run the following script and verify no results are returned:
-#!/bin/bash
-cut -d: -f1 /etc/passwd | sort | uniq -d | while read x
-do echo "Duplicate login name ${x} in /etc/passwd"
-done
+<pre><code>#!/bin/bash
+cut -d: -f1 /etc/passwd | sort | uniq -d | while read x ; do 
+    echo "Duplicate login name ${x} in /etc/passwd"
+done</code></pre>
 
 #### Remediation:
 Based on the results of the audit script, establish unique user names for the users. File
@@ -404,3 +404,78 @@ Version 7
 16 Account Monitoring and Control
 
 Account Monitoring and Control
+
+## 6.2.18 Ensure no duplicate group names exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Although the pw program will not let you create a duplicate group name, it is
+possible for an administrator to manually edit the <code>/etc/group</code> file and change the group
+name.
+
+#### Rationale:
+If a group is assigned a duplicate group name, it will create and have access to files with the
+first GID for that group in <code>/etc/group</code> . Effectively, the GID is shared, which is a security
+problem.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+cut -d: -f1 /etc/group | sort | uniq -d | while read x ; do 
+    echo "Duplicate group name ${x} in /etc/group"
+done</code></pre>
+
+#### Remediation:
+Based on the results of the audit script, establish unique names for the user groups. File
+group ownerships will automatically reflect the change as long as the groups have unique
+GIDs.
+
+#### CIS Controls:
+Version 7
+
+16 Account Monitoring and Control
+
+Account Monitoring and Control
+
+## 6.2.19 Ensure all users' home directories exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Users can be defined in /etc/passwd without a home directory or with a home directory
+that does not actually exist.
+
+#### Rationale:
+If the user's home directory does not exist or is unassigned, the user will be placed in "/"
+and will not be able to write any files or have local environment variables set.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read -r user dir; do
+    if [ ! -d "$dir" ]; then
+        echo "The home directory ($dir) of user $user does not exist."
+    fi
+done</code></pre>
+
+#### Remediation:
+If any users' home directories do not exist, create them and make sure the respective user
+owns the directory. Users without an assigned home directory should be removed or
+assigned a home directory as appropriate.
+
+#### Notes:
+The audit script checks all users with interactive shells except halt, sync, shutdown, and
+nfsnobody.
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
