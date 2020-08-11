@@ -76,3 +76,7 @@ Ensure system accounts are secured - No(?) direct translation to FreeBSD
 ## FileSystem
 
 **6.1.5 Check if the find command is doable (personal note)**
+
+## User and Group Settings 
+
+(6.2.19) Ensure shadow group is empty - NA for FreeBSD
