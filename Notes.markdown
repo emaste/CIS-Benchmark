@@ -80,3 +80,5 @@ Ensure system accounts are secured - No(?) direct translation to FreeBSD
 ## User and Group Settings 
 
 (6.2.19) Ensure shadow group is empty - NA for FreeBSD
+
+6.2.14 Ensure all groups in /etc/passwd exist in /etc/group - Script relies on Grep -P this is not an option of FreeBSd which breaks the script, can this be fixed?
