@@ -337,6 +337,44 @@ application, or database specific access control lists. These controls will enfo
 principle that only authorized individuals should have access to the information based on
 their need to access the information as a part of their responsibilities.
 
+## 6.2.15 Ensure no duplicate UIDs exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Although the useradd program will not let you create a duplicate User ID (UID), it is
+possible for an administrator to manually edit the <code>/etc/passwd</code> file and change the UID
+field.
+
+#### Rationale:
+Users must be assigned unique UIDs for accountability and to ensure appropriate access
+protections.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+cut -f3 -d":" /etc/passwd | sort -n | uniq -c | while read x ; do
+    [ -z "$x" ] && break
+    set - $x
+    if [ $1 -gt 1 ]; then
+        users=$(awk -F: '($3 == n) { print $1 }' n=$2 /etc/passwd | xargs)
+        echo "Duplicate UID ($2): $users"
+    fi
+done</code></pre>
+
+#### Remediation:
+Based on the results of the audit script, establish unique UIDs and review all files owned by
+the shared UIDs to determine which UID they are supposed to belong to.
+
+#### CIS Controls:
+Version 7
+
+16 Account Monitoring and Control
+
+Account Monitoring and Control
+
 ## 6.2.16 Ensure no duplicate GIDs exist
 
 #### Profile Applicability:
