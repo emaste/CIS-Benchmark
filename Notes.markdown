@@ -6,7 +6,7 @@
 
 ## Network Configuration:
 
-(3.1.2) packet redirect sending - Is this possible on FreeBSD?
+(3.1.2) packet redirect sending - NA on FreeBSD?
 
 **(3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?**
 
