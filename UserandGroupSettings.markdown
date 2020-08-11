@@ -337,6 +337,50 @@ application, or database specific access control lists. These controls will enfo
 principle that only authorized individuals should have access to the information based on
 their need to access the information as a part of their responsibilities.
 
+## 6.2.13 Ensure no users have .rhosts files
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+While no <code>.rhosts</code> files are shipped by default, users can easily create them.
+
+#### Rationale:
+This action is only meaningful if <code>.rhosts</code> support is permitted in the file <code>/etc/pam.conf</code> .
+Even though the <code>.rhosts</code> files are ineffective if support is disabled in <code>/etc/pam.conf</code> , they
+may have been brought over from other systems and could contain information useful to
+an attacker for those other systems.
+
+#### Audit:
+Run the following script and verify no results are returned:
+<pre><code>#!/bin/bash
+grep -E -v '^(root|halt|sync|shutdown)' /etc/passwd | awk -F: '($7 !=
+"'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user dir; do
+    if [ ! -d "$dir" ]; then
+        echo "The home directory ($dir) of user $user does not exist."
+    else
+        for file in $dir/.rhosts; do
+            if [ ! -h "$file" -a -f "$file" ]; then
+                echo ".rhosts file in $dir"
+            fi
+        done
+     fi
+done</code></pre>
+
+#### Remediation:
+Making global modifications to users' files without alerting the user community can result
+in unexpected outages and unhappy users. Therefore, it is recommended that a monitoring
+policy be established to report user <code>.rhosts</code> files and determine the action to be taken in
+accordance with site policy.
+
+#### CIS Controls:
+Version 7
+
+16.4 Encrypt or Hash all Authentication Credentials
+
+Encrypt or hash with a salt all authentication credentials when stored.
+
 ## 6.2.14 Ensure all groups in /etc/passwd exist in /etc/group
 
 #### Profile Applicability:
