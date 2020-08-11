@@ -345,7 +345,7 @@ their need to access the information as a part of their responsibilities.
 
 #### Description:
 Although the groupadd program will not let you create a duplicate Group ID (GID), it is
-possible for an administrator to manually edit the /etc/group file and change the GID field.
+possible for an administrator to manually edit the <code>/etc/group</code> file and change the GID field.
 
 #### Rationale:
 User groups must be assigned unique GIDs for accountability and to ensure appropriate
@@ -363,6 +363,40 @@ done</code></pre>
 Based on the results of the audit script, establish unique GIDs and review all files owned by
 the shared GID to determine which group they are supposed to belong to.
 
+
+#### CIS Controls:
+Version 7
+
+16 Account Monitoring and Control
+
+Account Monitoring and Control
+
+## 6.2.17 Ensure no duplicate user names exist
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Although the adduser program will not let you create a duplicate user name, it is possible
+for an administrator to manually edit the <code>/etc/passwd</code> file and change the user name.
+
+#### Rationale:
+If a user is assigned a duplicate user name, it will create and have access to files with the
+first UID for that username in <code>/etc/passwd</code> . For example, if "test4" has a UID of 1000 and a
+subsequent "test4" entry has a UID of 2000, logging in as "test4" will use UID 1000.
+Effectively, the UID is shared, which is a security problem.
+
+#### Audit:
+Run the following script and verify no results are returned:
+#!/bin/bash
+cut -d: -f1 /etc/passwd | sort | uniq -d | while read x
+do echo "Duplicate login name ${x} in /etc/passwd"
+done
+
+#### Remediation:
+Based on the results of the audit script, establish unique user names for the users. File
+ownerships will automatically reflect the change as long as the users have unique UIDs.
 
 #### CIS Controls:
 Version 7
