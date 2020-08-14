@@ -94,7 +94,29 @@ retrieve time information on a regular basis so that timestamps in logs are cons
 
 ## 2.2.2 SMTP
 
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
 
+#### Description:
+
+
+##### Rationale:
+
+
+##### Audit:
+
+
+#### Remediation:
+
+
+
+#### CIS Controls:
+Version 7
+
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
 
 
 ## 2.2.3 Ensure NFS is not enabled
