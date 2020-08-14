@@ -1,8 +1,6 @@
 ## Services:
 
-2.2.1.1 - Is Chrony setup needed? I included a ntpd setup, should I also have a section for installing/configuring chrony?
-
-**2.2.2 - SMTP - should smtp be disabled? or set to send-only?**
+Complete
 
 ## Network Configuration:
 
