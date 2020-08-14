@@ -95,6 +95,8 @@ retrieve time information on a regular basis so that timestamps in logs are cons
 ## 2.2.2 SMTP
 
 
+
+
 ## 2.2.3 Ensure NFS is not enabled
 
 #### Profile Applicability:
