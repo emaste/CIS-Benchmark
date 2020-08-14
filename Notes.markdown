@@ -1,6 +1,6 @@
 ## Services:
 
-Complete
+2.2.2 SMTP - FreeBSD handbook workthrough
 
 ## Network Configuration:
 
