@@ -78,15 +78,15 @@ operating as root to execute a Trojan horse program.
 #### Audit:
 Run the following script and verify no results are returned:
 <pre><code>for x in $(echo $PATH | tr ":" " ") ; do
- if [ -d "$x" ] ; then
- ls -ldH "$x" | awk '
+    if [ -d "$x" ] ; then
+    ls -ldH "$x" | awk '
 $9 == "." {print "PATH contains current working directory (.)"}
 $3 != "root" {print $9, "is not owned by root"}
 substr($1,6,1) != "-" {print $9, "is group writable"}
 substr($1,9,1) != "-" {print $9, "is world writable"}'
- else
- echo "$x is not a directory"
- fi
+    else
+        echo "$x is not a directory"
+    fi
 done</code></pre>
 
 #### Remediation:
@@ -179,7 +179,6 @@ Version 7
 5.1 Establish Secure Configurations
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software.
-
 
 
 
