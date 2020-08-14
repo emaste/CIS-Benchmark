@@ -1,20 +1,22 @@
+Bolded need reviewing
+Italics have already been confirmed by Ed.
+
+
 ## Services:
 
 2.2.2 SMTP - FreeBSD handbook workthrough
 
 ## Network Configuration:
 
-(3.1.2) packet redirect sending - NA on FreeBSD?
+*Ensure secure ICMP redirects are not accepted - NA for FreeBSD* 
 
-**(3.2.3) Ensure secure ICMP redirects are not accepted - Neither inet6(4) or inet(4) have this parameter, is this doable with anything else?**
+Ensure bogus ICMP responses are ignored - NA for FreeBSD
 
-(3.2.6) Ensure bogus ICMP responses are ignored - NA for FreeBSD
+Ensure Reverse Path Filtering is enabled - NA for freebsd
 
-(3.2.7) Ensure Reverse Path Filtering is enabled - NA for freebsd
+*Ensure DCCP is disabled - Looks like DCCP isn't available on FreeBSD?*
 
-(3.3.1) Ensure DCCP is disabled - Looks like DCCP isn't available on FreeBSD?
-
-(3.4.1.2) 3.4.2.2 Ensure iptables is not enabled - NA for FREEBSD
+3.4.2.2 Ensure iptables is not enabled - NA for FreeBSD
 
 
 ## Auditing and Logging.
