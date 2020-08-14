@@ -45,9 +45,9 @@ The capturing of system events provides system administrators with information t
 them to determine if unauthorized access to their system is occurring.
 
 #### Audit:
-Run the following command and verify auditd is installed:
-
-# UPDATE THIS
+Run the following command and verify the output:
+<pre><code># ls /usr/sbin/auditd
+/usr/sbin/auditd</code></pre>
 
 #### Remediation:
 Run the following command to Install auditd
