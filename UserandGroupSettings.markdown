@@ -181,7 +181,7 @@ Maintain documented, standard security configuration standards for all authorize
 operating systems and software.
 
 
-## 6.2.10  Ensure no users have .forward files
+
 
 
 
