@@ -39,6 +39,48 @@ Version 7
 Maintain documented, standard security configuration standards for all authorized
 operating systems and software
 
+
+## 3.1.2 Ensure packet redirect sending is disabled
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+ICMP Redirects are used to send routing information to other hosts. As a host itself does
+not act as a router (in a host only configuration), there is no need to send redirects.
+
+#### Rationale:
+An attacker could use a compromised host to send invalid ICMP redirects to other router
+devices in an attempt to corrupt routing and have users access a system set up by the
+attacker as opposed to a valid system.
+
+#### Audit:
+Run the following commands and verify output matches:
+<pre><code># sysctl net.inet.ip.redirect
+net.inet.ip.redirect: 0</code></pre>
+<pre><code># grep "net\.inet\.ip\.redirect" /etc/sysctl.conf
+net.ipv4.conf.all.send_redirects=0</code></pre>
+
+
+#### Remediation:
+
+Set the following parameters in <code>/etc/sysctl.conf</code>:
+<pre><code>net.inet.ip.redirect=0</code></pre>
+
+Run the following commands to set the active kernel parameters:
+
+<pre><code># sysctl -w net.inet.ip.redirect=0</code></pre>
+
+#### CIS Controls:
+Version 7
+
+5.1 Establish Secure Configurations
+
+Maintain documented, standard security configuration standards for all authorized
+operating systems and software.
+
+
 # 3.2 Network Parameters
 
 The following network parameters are intended for use on both host only and router
