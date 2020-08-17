@@ -92,19 +92,62 @@ Version 7
 Use at least three synchronized time sources from which all servers and network devices
 retrieve time information on a regular basis so that timestamps in logs are consistent.
 
-## 2.2.2 SMTP
+## 2.2.2 Configure SMTP Authentication
+
+## 2.2.2.1 Ensure SASL is installed
 
 #### Profile Applicability:
 * Level 1 - Server
 * Level 1 - Workstation
 
 #### Description:
-
+SASL is the Simple Authentication and Security Layer, a method for adding authentication support to connection-based protocols. To use SASL, a protocol includes a command for identifying and authenticating a user to a server and for optionally negotiating protection of subsequent protocol interactions.
 
 ##### Rationale:
-
+If SASL is used, a security layer is inserted between the protocol and the connection.
 
 ##### Audit:
+Run the following command and ensure the packages are installed:
+<pre><code># pkg info cyrus-sasl
+pkg info cyrus-sasl-saslauthd</code></pre>
+
+
+#### Remediation:
+Run the following commands to install cyrus-sasl and saslauth
+<pre><code># pkg install cyrus-sasl
+# pkg install cyrus-sasl-saslauthd</code></pre>
+
+Next edit or create <code>/usr/local/lib/sasl2/Sendmail.conf</code> and add the following line:
+<pre><code>pwcheck_method: saslauthd</code></pre>
+
+Add the following line to <code>/etc/rc.conf</pre>:
+<pre><code>saslauthd_enable="YES"</code></pre>
+
+Finally, run the following command to start the saslauthd daemon:
+<pre><code># service saslauthd start</code></pre>
+
+
+#### CIS Controls:
+Version 7
+
+9.2 Ensure Only Approved Ports, Protocols and Services Are Running
+Ensure that only network ports, protocols, and services listening on a system with
+validated business needs, are running on each system.
+
+## 2.2.2.2 Configure SASL for SMTP Authentication
+
+#### Profile Applicability:
+* Level 1 - Server
+* Level 1 - Workstation
+
+#### Description:
+Configuring SMTP authentication through SASL provides a number of benefits. SMTP authentication adds a layer of security to Sendmail, and provides mobile users who switch hosts the ability to use the same MTA without the need to reconfigure their mail client's settings each time
+
+##### Rationale:
+SMTP is responsible for setting up communication between servers. This forces the second server to authorize before mail is sent.
+
+##### Audit:
+
 
 
 #### Remediation:
