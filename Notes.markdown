@@ -14,14 +14,12 @@ Ensure bogus ICMP responses are ignored - NA for FreeBSD
 
 Ensure Reverse Path Filtering is enabled - NA for freebsd
 
-*Ensure DCCP is disabled - Looks like DCCP isn't available on FreeBSD?*
+*Ensure DCCP is disabled - NA for FreeBSD?*
 
 3.4.2.2 Ensure iptables is not enabled - NA for FreeBSD
 
 
 ## Auditing and Logging.
-
-**4.1.1.1  Ensure auditd is installed - Is there a way to check if auditd is installed? I know it's normally packages with the base OS**
 
 (4.1.1.3)  Ensure auditing for processes that start prior to auditd is enabled - Not possible in FreeBSD
 
