@@ -202,7 +202,7 @@ an attacker for those other systems.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 grep -E -v '^(root|halt|sync|shutdown)' /etc/passwd | awk -F: '($7 !=
 "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read user dir; do
     if [ ! -d "$dir" ]; then
@@ -245,7 +245,7 @@ system security since group permissions are not properly managed.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
     for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
     grep -q -P "^.*?:[^:]*:$i:" /etc/group
     if [ $? -ne 0 ]; then
@@ -282,7 +282,7 @@ protections.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 cut -f3 -d":" /etc/passwd | sort -n | uniq -c | while read x ; do
     [ -z "$x" ] && break
     set - $x
@@ -320,7 +320,7 @@ access protections.
 #### Audit:
 Run the following script and verify no results are returned:
 
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 cut -d: -f3 /etc/group | sort | uniq -d | while read x ; do
     echo "Duplicate GID ($x) in /etc/group"
 done</code></pre>
@@ -355,7 +355,7 @@ Effectively, the UID is shared, which is a security problem.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 cut -d: -f1 /etc/passwd | sort | uniq -d | while read x ; do 
     echo "Duplicate login name ${x} in /etc/passwd"
 done</code></pre>
@@ -389,7 +389,7 @@ problem.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 cut -d: -f1 /etc/group | sort | uniq -d | while read x ; do 
     echo "Duplicate group name ${x} in /etc/group"
 done</code></pre>
@@ -422,7 +422,7 @@ and will not be able to write any files or have local environment variables set.
 
 #### Audit:
 Run the following script and verify no results are returned:
-<pre><code>#!/bin/bash
+<pre><code>#!/bin/sh
 grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read -r user dir; do
     if [ ! -d "$dir" ]; then
         echo "The home directory ($dir) of user $user does not exist."
