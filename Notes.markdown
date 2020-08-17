@@ -14,7 +14,7 @@ Ensure bogus ICMP responses are ignored - NA for FreeBSD
 
 Ensure Reverse Path Filtering is enabled - NA for freebsd
 
-*Ensure DCCP is disabled - NA for FreeBSD?*
+*Ensure DCCP is disabled - NA for FreeBSD*
 
 3.4.2.2 Ensure iptables is not enabled - NA for FreeBSD
 
