@@ -48,10 +48,11 @@ Ensure Reverse Path Filtering is enabled - NA for freebsd
 
 ## Cron/Perodic:
 
-**5.1.4 - Secure at/cron/periodic to authorized users - Does periodic have allow/deny files? Couldn't locate them.**
+Finished
 
 ## SSH
-5.2.20 Ensure system-wide crypto policy is not over-ridden - N/A for FreeBSD
+
+*5.2.20 Ensure system-wide crypto policy is not over-ridden - N/A for FreeBSD*
 
 ## User Accounts & Environment
 
