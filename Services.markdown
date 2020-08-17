@@ -151,7 +151,24 @@ SMTP is responsible for setting up communication between servers. This forces th
 
 
 #### Remediation:
+Add the following lines to <code>/etc/make.conf</code>
+<pre><code>SENDMAIL_CFLAGS=-I/usr/local/include/sasl -DSASL
 
+SENDMAIL_LDADD=/usr/local/lib/libsasl2.so</code></pre>
+
+Recompile Sendmail by executing the following commands:
+
+<pre><code># cd /usr/src/lib/libsmutil
+# make cleandir && make obj && make
+# cd /usr/src/lib/libsm
+# make cleandir && make obj && make
+# cd /usr/src/usr.sbin/sendmail
+# make cleandir && make obj && make && make install</code></pre>
+
+Finally, run the following commands:
+<pre><code># cd /etc/mail
+# make 
+# make install restart</code></pre>
 
 
 #### CIS Controls:
