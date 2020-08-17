@@ -4,7 +4,7 @@ Italics have already been confirmed by Ed.
 
 ## Services:
 
-2.2.2 SMTP - FreeBSD handbook workthrough
+Finished
 
 ## Network Configuration:
 
